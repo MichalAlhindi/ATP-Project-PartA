@@ -143,8 +143,8 @@ public class MyMazeGenerator extends AMazeGenerator{
             return false;
         if (MyMaze.getCellValue(p.getRowIndex(), p.getColumnIndex()) == 0)
             return false;
-        //return true;
-       return (numOfPathNeighbours(p) <= 1);
+        return true;
+      // return (numOfPathNeighbours(p) <= 1);
     }
 
     /**
@@ -153,25 +153,25 @@ public class MyMazeGenerator extends AMazeGenerator{
      * @param p - position from user
      */
 
-    private int numOfPathNeighbours(Position p) {
-        if (p == null)
-            return 0;
-        int count = 0;
-        //if neighbour legal and has 0 count++;
-        if (isLegal(p.getRowIndex(), p.getColumnIndex() + 2) &&
-                MyMaze.getCellValue(p.getRowIndex(), p.getColumnIndex() + 2) == 0)
-            count++;
-        if (isLegal(p.getRowIndex(), p.getColumnIndex() - 2) &&
-                MyMaze.getCellValue(p.getRowIndex(), p.getColumnIndex() - 2) == 0)
-            count++;
-        if (isLegal(p.getRowIndex() + 2, p.getColumnIndex()) &&
-                MyMaze.getCellValue(p.getRowIndex() + 2, p.getColumnIndex()) == 0)
-            count++;
-        if (isLegal(p.getRowIndex() - 2, p.getColumnIndex()) &&
-                MyMaze.getCellValue(p.getRowIndex() - 2, p.getColumnIndex()) == 0)
-            count++;
-        return count;
-    }
+//    private int numOfPathNeighbours(Position p) {
+//        if (p == null)
+//            return 0;
+//        int count = 0;
+//        //if neighbour legal and has 0 count++;
+//        if (isLegal(p.getRowIndex(), p.getColumnIndex() + 2) &&
+//                MyMaze.getCellValue(p.getRowIndex(), p.getColumnIndex() + 2) == 0)
+//            count++;
+//        if (isLegal(p.getRowIndex(), p.getColumnIndex() - 2) &&
+//                MyMaze.getCellValue(p.getRowIndex(), p.getColumnIndex() - 2) == 0)
+//            count++;
+//        if (isLegal(p.getRowIndex() + 2, p.getColumnIndex()) &&
+//                MyMaze.getCellValue(p.getRowIndex() + 2, p.getColumnIndex()) == 0)
+//            count++;
+//        if (isLegal(p.getRowIndex() - 2, p.getColumnIndex()) &&
+//                MyMaze.getCellValue(p.getRowIndex() - 2, p.getColumnIndex()) == 0)
+//            count++;
+//        return count;
+//    }
 
     /**
      * checks if the position is on maze's bounds
@@ -203,26 +203,19 @@ public class MyMazeGenerator extends AMazeGenerator{
      */
 
     private void makeGoalPosition() {
-        int x;
+
         boolean found = false;
         int rows = MyMaze.numOfRows();
         int columns = MyMaze.numOfColumns();
-        Random random = new Random();
+
         while (!found) {
-            x = random.nextInt(2) + 1;//get value of 1 or 2
-            if (x == 1) {
-                x = random.nextInt(columns); // get a random column
-                if (MyMaze.getCellValue(rows - 1, x) == 0) {//legal goal position in last row.
-                    MyMaze.setEndPoint(rows - 1, x);
-                    found = true;
-                }
-            } else {
-                x = random.nextInt(MyMaze.numOfRows());// get a random row
-                if (MyMaze.getCellValue(x, columns - 1) == 0) {//legal goal position in last column
-                    MyMaze.setEndPoint(x, columns - 1);
-                    found = true;
-                }
+            Position p= MyMaze.pointsOnFrame(rows, columns);
+
+            if (MyMaze.getCellValue(p.getRowIndex(), p.getColumnIndex()) == 0) {//legal goal position in last row.
+                MyMaze.setEndPoint(p.getRowIndex(), p.getColumnIndex());
+                found = true;
             }
+
         }
     }
 }

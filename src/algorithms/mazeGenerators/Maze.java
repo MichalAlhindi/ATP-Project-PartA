@@ -1,5 +1,7 @@
 package algorithms.mazeGenerators;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Maze {
@@ -14,17 +16,38 @@ public class Maze {
         this.rows=r;
         this.columns=c;
         this.mazeArr= new int[r][c];
-        this.StartPoint= new Position(0,0); //default
-        Random r2 = new Random();
-        int low1 = 0;
-        int high1 = rows-1;
-       setEndPoint(r2.nextInt(high1-low1)+low1, columns-1); // do!!!!!!!!!!!!!!!!!
-       setStartPoint(r2.nextInt(high1-low1)+low1, columns-1); // do!!!!!!!!!!!!!!!!!
+       // this.StartPoint= new Position(0,0); //default
+//        Random r2 = new Random();
+//        int low1 = 0;
+//        int high1 = rows-1;
+        Position p1 ,p2;
+        p1= pointsOnFrame(rows,columns);
+        p2=pointsOnFrame(rows,columns);
+        while (p1.getRowIndex()== p2.getRowIndex() && p1.getColumnIndex()== p2.getColumnIndex()){
+            p2=pointsOnFrame(rows,columns);
+        }
+        setStartPoint(p1.getRowIndex(), p1.getColumnIndex());
+       setEndPoint(p2.getRowIndex(), p2.getColumnIndex());
     }
     public int[][] getMazeArr(){
         return this.mazeArr;
     }
 //check if points on frame!!!
+    public Position pointsOnFrame(int rows, int columns){
+        List<Position> points;
+        points = new ArrayList<Position>();
+        Random r= new Random();
+        int first= r.nextInt(rows);
+        int second= r.nextInt(columns);
+        // (0,0-c) ,(0-r,0) , (r-1, 0-c) , (0-r, c-1)
+        points.add(new Position(0,second));
+        points.add(new Position(first,0));
+        points.add(new Position(rows-1,r.nextInt(columns)));
+        points.add(new Position(r.nextInt(rows),columns-1));
+        Random random = new Random();
+        int index = random.nextInt(points.size());
+        return points.get(index);
+    }
     public void setStartPoint(int r, int c) {
 
         this.StartPoint = new Position(r,c);
@@ -45,9 +68,6 @@ public class Maze {
         return mazeArr.length;
     }
 
-    /**
-     * @return number of columns in maze
-     */
 
     public int numOfColumns() {
         return mazeArr[0].length;

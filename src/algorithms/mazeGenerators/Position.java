@@ -3,7 +3,7 @@ package algorithms.mazeGenerators;
 public class Position {
     private int rowIdx;
     private int colIdx;
-    private int value;
+
 
     public Position(int row, int column){
         this.colIdx=column;
