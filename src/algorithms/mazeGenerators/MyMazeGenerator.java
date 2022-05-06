@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MyMazeGenerator extends AMazeGenerator{
+public class MyMazeGenerator extends AMazeGenerator {
 
     private Maze MyMaze;
     private Position[][] cells;

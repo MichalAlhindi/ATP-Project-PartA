@@ -1,7 +1,7 @@
 package algorithms.mazeGenerators;
 
 
-public class SimpleMazeGenerator extends  AMazeGenerator{
+public class SimpleMazeGenerator extends AMazeGenerator {
     public SimpleMazeGenerator(){
 
     }
