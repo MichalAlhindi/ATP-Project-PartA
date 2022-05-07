@@ -1,5 +1,5 @@
 package test;
-import algorithms.*;
+//import algorithms.*;
 
 import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
