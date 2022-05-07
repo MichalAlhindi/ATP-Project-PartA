@@ -73,10 +73,10 @@ public class Maze {
         return mazeArr[0].length;
     }
 
-    public  Position getStartPosition(){
+    public Position getStartPosition(){
         return StartPoint;
     }
-    public  Position getGoalPosition(){
+    public Position getGoalPosition(){
         return EndPoint;
     }
     public void print(){
