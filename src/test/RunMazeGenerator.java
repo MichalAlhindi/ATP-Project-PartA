@@ -1,12 +1,15 @@
 package test;
 import algorithms.*;
-import algorithms.mazeGenerators.*;
+
+import algorithms.mazeGenerators.IMazeGenerator;
+import algorithms.mazeGenerators.Maze;
+import algorithms.mazeGenerators.Position;
 public class RunMazeGenerator {
-    public static void main(String[] args) {
-        testMazeGenerator(new EmptyMazeGenerator());
-        testMazeGenerator(new SimpleMazeGenerator());
-        testMazeGenerator(new MyMazeGenerator());
-    }
+//    public static void main(String[] args) {
+//        testMazeGenerator(new EmptyMazeGenerator());
+//        testMazeGenerator(new SimpleMazeGenerator());
+//        testMazeGenerator(new MyMazeGenerator());
+//    }
     private static void testMazeGenerator(IMazeGenerator mazeGenerator) {
 // prints the time it takes the algorithm to run
         System.out.println(String.format("Maze generation time(ms): %s", mazeGenerator.measureAlgorithmTimeMillis(100/*rows*/,100/*columns*/)));
