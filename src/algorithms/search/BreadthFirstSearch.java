@@ -1,15 +1,13 @@
 package algorithms.search;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class BreadthFirstSearch extends ASearchingAlgorithm{
-    protected PriorityQueue<AState> openList;
+    protected Queue<AState> openList;
     protected Map closedList;
 
     public BreadthFirstSearch(){
-        openList = new PriorityQueue<AState>();
+        this.name = "BreadthFirstSearch";
+        openList =  new LinkedList<AState>();
         closedList = new HashMap();
         numVisited = 0;
     }
@@ -29,38 +27,45 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
 
     /* solution without consider the cost
     */
-    public Solution solve(ISearchable searchable){
+    public Solution solve(ISearchable searchable) {
+
+        searchable.ResetVisit(); // set all visit to false
+
         AState currState = searchable.getStartState();
         insertOpenList(currState);
+        searchable.changeVisitTrue(searchable.getStartState());
+        //numVisited++;
         Solution sol;
-        while(!(openList.isEmpty())) {
-            currState = popOpenList();
+        while (!(openList.isEmpty())) {
+
+            currState = openList.poll();
+            numVisited++;
             insertClosedList(currState);
             if (currState.equals(searchable.getGoalState())) {
-                //return the solution path////////////////////////////
-                //sol += currState.getName();
-                while(currState.getParent()!=null) {
-                    currState = currState.getParent();
-                    //sol += currState.getParent();
-                }
-                //return sol;
+                searchable.setGoalState(currState);
+                sol = getSolution(currState);
+                searchable.ResetVisit(); //reset visited fields
+                return sol; //return solution
+
             }
-            ArrayList<AState> successorsList = searchable.getAllSuccessors(currState);
+            ArrayList<AState> successorsList = searchable.getAllPossibleStates(currState);
             for (int i = 0; i < successorsList.size(); i++) {
-                AState childState = successorsList.get(i);
-                if (closedList.containsKey(childState.getName())) {
-                    continue;
+                if (!searchable.isVisited(successorsList.get(i))) {// new state found
+                    //numVisited++;
+                    searchable.changeVisitTrue(successorsList.get(i));
+                    successorsList.get(i).setParent(currState); //updates its parent
+                    openList.add(successorsList.get(i));
                 }
-                if (!(openList.contains(childState))) { // is the id needed????????????//
-                    childState.setParent(currState);
-                    insertOpenList(childState);
+                if (successorsList.get(i).equals(searchable.getGoalState())) {
+                    successorsList.get(i).setParent(currState);
+                    searchable.setGoalState(successorsList.get(i)); //set end state
+                    sol = getSolution(successorsList.get(i));
+                    searchable.ResetVisit();
+                    return sol; //return solution
                 }
             }
         }
         return null;
     }
-
-
-
-
 }
+
