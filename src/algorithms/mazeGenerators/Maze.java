@@ -13,13 +13,11 @@ public class Maze {
     private Position EndPoint;
 
     public Maze(int r, int c){
+
         this.rows=r;
         this.columns=c;
         this.mazeArr= new int[r][c];
-       // this.StartPoint= new Position(0,0); //default
-//        Random r2 = new Random();
-//        int low1 = 0;
-//        int high1 = rows-1;
+
         Position p1 ,p2;
         p1= pointsOnFrame(rows,columns);
         p2=pointsOnFrame(rows,columns);
@@ -49,12 +47,10 @@ public class Maze {
         return points.get(index);
     }
     public void setStartPoint(int r, int c) {
-
         this.StartPoint = new Position(r,c);
     }
     public void setEndPoint(int r, int c) {
         this.EndPoint = new Position(r, c);
-
     }
     public void setMazeArr(int r, int c, int val){
         this.mazeArr[r][c]= val;
@@ -64,61 +60,51 @@ public class Maze {
         return mazeArr[row][column];
     }
 
-    public int numOfRows() {
+    public int getRows() {
         return mazeArr.length;
     }
 
-
-    public int numOfColumns() {
+    public int getColumns() {
         return mazeArr[0].length;
     }
 
     public Position getStartPosition(){
         return StartPoint;
     }
+
     public Position getGoalPosition(){
         return EndPoint;
     }
+
     public void print(){
+        int StartIdxRow =getStartPosition().getRowIndex();
+        int StartIdxCol = getStartPosition().getColumnIndex();
+        int GoalIdxRow= getGoalPosition().getRowIndex();
+        int GoalIdxCol= getGoalPosition().getColumnIndex();
+        System.out.print("{");
+        for (int i=0; i< rows; i++){
+            System.out.print("{");
+            for ( int j=0; j< columns; j++){
+                if (i== StartIdxRow && j== StartIdxCol){
+                    System.out.print("S");
+                }
+                else if (i== GoalIdxRow && j== GoalIdxCol){
+                    System.out.print("E");
+                }
+                else {
+                    System.out.print(mazeArr[i][j] );
+                }
+                if (j!=columns-1){
+                    System.out.print(',');
+                }
 
-            for (int i = 0; i < mazeArr.length; i++) {
-                System.out.println(" "); //go down at end of line of array
-                for (int j = 0; j < mazeArr[0].length; j++)
-                    if (i == getStartPosition().getRowIndex() && j == getStartPosition().getColumnIndex())
-                        System.out.print(" S"); //start position
-                    else if (i == getGoalPosition().getRowIndex() && j == getGoalPosition().getColumnIndex())
-                        System.out.print(" E"); //end position
-                    else
-                        System.out.print(" " + mazeArr[i][j]); //print if 0 or 1 and add space
             }
-            System.out.println(" "); //just so it looks better
+            if (i!=rows-1)
+                System.out.print("}\n," );
+            else
+                System.out.print("}");
         }
-
-//        int StartIdxRow =getStartPosition().getRowIndex();
-//        int StartIdxCol = getStartPosition().getColumnIndex();
-//        int GoalIdxRow= getGoalPosition().getRowIndex();
-//        int GoalIdxCol= getGoalPosition().getColumnIndex();
-//        System.out.println("{\n");
-//        for (int i=0; i< rows; i++){
-//            System.out.println("{");
-//            for ( int j=0; j< columns; j++){
-//                if (i== StartIdxRow && j== StartIdxCol){
-//                    System.out.println("S");
-//                }
-//                else if (i== GoalIdxRow && j== GoalIdxCol){
-//                    System.out.println("E");
-//                }
-//                else {
-//                    System.out.println(mazeArr[i][j] );
-//                }
-//                if (j!=columns-1){
-//                    System.out.println(',');
-//                }
-//
-//            }
-//            System.out.println("} ,\n" );
-//        }
-//        System.out.println("}");
-//    }
+        System.out.print("}\n");
+    }
 
 }

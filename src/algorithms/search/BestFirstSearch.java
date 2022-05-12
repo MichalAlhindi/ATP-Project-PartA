@@ -4,26 +4,19 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 public class BestFirstSearch extends ASearchingAlgorithm{
-
-
     public BestFirstSearch() {
         super();
         this.name = "BestFirstSearch";
-        this.numVisited = 0;
-
     }
 
-
-    private int comparecosts(AState o1, AState o2) {
+    public int comparecosts(AState o1, AState o2) {
         if (o1.getCost() > o2.getCost())
             return 1;
         if (o2.getCost() > o1.getCost())
             return -1;
         else
             return 0;
-
     }
-
 
     @Override
     public Solution solve(ISearchable searchableM) {
@@ -37,8 +30,6 @@ public class BestFirstSearch extends ASearchingAlgorithm{
         Sol = FindSol(StepsGo, searchableM);
         return Sol;
     }
-
-
 
     private Solution FindSol(PriorityQueue<AState> StepsGo, ISearchable searchableM) {
         if (StepsGo == null)
@@ -68,11 +59,9 @@ public class BestFirstSearch extends ASearchingAlgorithm{
                     }
                     searchableM.changeVisitTrue(NeighboursList.get(i));
                     StepsGo.add(NeighboursList.get(i));
-
                 }
             }
         }
         return null;
     }
-
 }

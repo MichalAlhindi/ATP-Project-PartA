@@ -15,11 +15,9 @@ public class SearchableMaze implements  ISearchable{
             maze = m;
             startPoint = new MazeState(m.getStartPosition().getRowIndex(), m.getStartPosition().getColumnIndex());
             endPoint = new MazeState(m.getGoalPosition().getRowIndex(), m.getGoalPosition().getColumnIndex());
-            visitedMap = new boolean[m.numOfRows()][m.numOfColumns()];
+            visitedMap = new boolean[m.getRows()][m.getColumns()];
         }
     }
-
-
 
     @Override
     public AState getStartState() {
@@ -31,8 +29,6 @@ public class SearchableMaze implements  ISearchable{
         return endPoint;
     }
 
-
-
     @Override
     public void setGoalState(AState x) {
         if (x != null && x instanceof MazeState) //make sure aState is a MazeState
@@ -40,7 +36,7 @@ public class SearchableMaze implements  ISearchable{
     }
 
     private boolean isLegal(int row, int column) {
-        if (row < 0 || column < 0 || row >= maze.numOfRows() || column >= maze.numOfColumns())
+        if (row < 0 || column < 0 || row >= maze.getRows() || column >= maze.getColumns())
             return false;
         if (visitedMap[row][column] == false)
             return true;
@@ -82,8 +78,6 @@ public class SearchableMaze implements  ISearchable{
         }
         return temp;
     }
-
-
 
     @Override
     public ArrayList<AState> getAllPossibleStates(AState s) {
@@ -130,13 +124,12 @@ public class SearchableMaze implements  ISearchable{
 
     @Override
     public boolean isVisited(AState visit) {
-        if (visit != null && ((MazeState) visit).getRow() < maze.numOfRows() && ((MazeState) visit).getCol() < maze.numOfColumns()  && ((MazeState) visit).getRow() >= 0 && ((MazeState) visit).getCol() >= 0) {
+        if (visit != null && ((MazeState) visit).getRow() < maze.getRows() && ((MazeState) visit).getCol() < maze.getColumns()  && ((MazeState) visit).getRow() >= 0 && ((MazeState) visit).getCol() >= 0) {
             boolean x = visitedMap[((MazeState) visit).getRow()][((MazeState) visit).getCol()];
             return x;
         } else
             return false;
     }
-
 
 
     @Override
@@ -146,11 +139,10 @@ public class SearchableMaze implements  ISearchable{
     }
 
 
-
     @Override
     public void ResetVisit() {
-        for (int i = 0; i < maze.numOfRows(); i++)
-            for (int j = 0; j < maze.numOfColumns(); j++)
+        for (int i = 0; i < maze.getRows(); i++)
+            for (int j = 0; j < maze.getColumns(); j++)
                 visitedMap[i][j] = false;
     }
 }

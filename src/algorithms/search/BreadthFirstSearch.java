@@ -6,10 +6,10 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
     protected Map closedList;
 
     public BreadthFirstSearch(){
+        super();
         this.name = "BreadthFirstSearch";
         openList =  new LinkedList<AState>();
         closedList = new HashMap();
-        numVisited = 0;
     }
 
     protected AState popOpenList(){
@@ -21,37 +21,27 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
         openList.add(s);
     }
 
-    protected void insertClosedList(AState s){
-        closedList.put(s.getName(), s);
-    }
-
     /* solution without consider the cost
     */
     public Solution solve(ISearchable searchable) {
 
         searchable.ResetVisit(); // set all visit to false
-
         AState currState = searchable.getStartState();
         insertOpenList(currState);
-        searchable.changeVisitTrue(searchable.getStartState());
-        //numVisited++;
+        searchable.changeVisitTrue(currState);
         Solution sol;
         while (!(openList.isEmpty())) {
-
             currState = openList.poll();
             numVisited++;
-            insertClosedList(currState);
             if (currState.equals(searchable.getGoalState())) {
                 searchable.setGoalState(currState);
                 sol = getSolution(currState);
                 searchable.ResetVisit(); //reset visited fields
                 return sol; //return solution
-
             }
             ArrayList<AState> successorsList = searchable.getAllPossibleStates(currState);
             for (int i = 0; i < successorsList.size(); i++) {
                 if (!searchable.isVisited(successorsList.get(i))) {// new state found
-                    //numVisited++;
                     searchable.changeVisitTrue(successorsList.get(i));
                     successorsList.get(i).setParent(currState); //updates its parent
                     openList.add(successorsList.get(i));

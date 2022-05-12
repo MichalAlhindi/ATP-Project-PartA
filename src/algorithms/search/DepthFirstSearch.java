@@ -8,9 +8,8 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
     public DepthFirstSearch() {
         super();
         this.name = "DepthFirstSearch";
-        this.numVisited = 0;
-
     }
+
     public Solution solve(ISearchable searchable){
         searchable.ResetVisit();
         Stack<AState> path= new Stack<AState>();
@@ -47,6 +46,5 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
             }
         }
         return null;
-
     }
 }

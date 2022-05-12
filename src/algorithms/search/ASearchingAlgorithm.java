@@ -4,19 +4,17 @@ import java.util.Stack;
 
 public abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
     protected ISearchable searchable;
-    public String name;
-    public int numVisited;
+    protected String name;
+    protected int numVisited;
+    ASearchingAlgorithm(){
+        numVisited = 0;
+    }
     public String getName(){
         return name;
     }
     public int getNumberOfNodesEvaluated(){
         return numVisited;
     }
-
-
-
-
-
 
     public Solution getSolution(AState state) {
         Solution Sol = new Solution();

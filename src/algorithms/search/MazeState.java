@@ -13,15 +13,12 @@ public class MazeState extends AState{
         this.col = col;
     }
 
-
-
     @Override
     public String toString() {
         String x;
         x = row + "," + col;
         return x;
     }
-
 
     public int getRow() {
         return row;
@@ -30,7 +27,6 @@ public class MazeState extends AState{
     public int getCol() {
         return col;
     }
-
 
     public boolean equals(Object o) {
         if (!(o instanceof MazeState))
