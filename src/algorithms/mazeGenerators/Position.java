@@ -4,15 +4,15 @@ public class Position {
     private int rowIdx;
     private int colIdx;
 
-
-    public Position(int row, int column){
-        this.colIdx=column;
-        this.rowIdx=row;
-
+    public Position(int row, int column) {
+        this.colIdx = column;
+        this.rowIdx = row;
     }
-    public int getRowIndex(){
+
+    public int getRowIndex() {
         return rowIdx;
     }
+
     public int getColumnIndex(){
         return colIdx;
     }
@@ -24,7 +24,4 @@ public class Position {
                 "," + colIdx +
                 '}';
     }
-
-
-
 }

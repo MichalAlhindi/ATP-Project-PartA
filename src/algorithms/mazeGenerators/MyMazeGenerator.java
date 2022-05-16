@@ -10,25 +10,24 @@ public class MyMazeGenerator extends AMazeGenerator {
     private Position[][] cells;
     private List<Position> candidates;
 
-
     public MyMazeGenerator() {
         candidates = new ArrayList<Position>();
     }
 
     @Override
     public Maze generate(int rows, int columns) {
-         MyMaze= new Maze(rows,columns);
-
+        if (rows<2)
+            rows=2;
+        if(columns<2)
+            columns=2;
+        MyMaze= new Maze(rows,columns);
         cells = new Position[rows][columns];
-
         for (int i=0; i<rows; i++){
             for (int j=0; j< columns; j++){
                 MyMaze.setMazeArr(i,j, 1);
                 cells[i][j] = new Position(i, j);
             }
-
         }
-////DOOOOOOOOOOOOOOOOOO
         candidates.add(MyMaze.getStartPosition()); //add start position to array
         Position currentPosition;
         Position prePosition=null;//////
@@ -40,18 +39,16 @@ public class MyMazeGenerator extends AMazeGenerator {
                 connect(prePosition,currentPosition);
                 addCandidates(currentPosition);//neighbours are candidates
             }
-
             candidates.remove(currentPosition);
         }
         makeGoalPosition();
         return MyMaze;
     }
 
-    public Position getMyFather(Position p){
+    private Position getMyFather(Position p){
         List<Position> neighbours , potentialsFather;
         potentialsFather = new ArrayList<Position>();
         neighbours = myNeighbours(p);
-
         for (int i = 0; i < neighbours.size(); i++)
             if (MyMaze.getCellValue(neighbours.get(i).getRowIndex(), neighbours.get(i).getColumnIndex()) == 0)
                 potentialsFather.add(cells[neighbours.get(i).getRowIndex()][neighbours.get(i).getColumnIndex()]);
@@ -62,7 +59,7 @@ public class MyMazeGenerator extends AMazeGenerator {
         int index = random.nextInt(potentialsFather.size()); // get a random father
         return potentialsFather.get(index);
     }
-    public boolean connect(Position p1, Position p2){
+    private boolean connect(Position p1, Position p2){
         if (p1==null ||p2==null)
             return false;
         else{
@@ -144,34 +141,7 @@ public class MyMazeGenerator extends AMazeGenerator {
         if (MyMaze.getCellValue(p.getRowIndex(), p.getColumnIndex()) == 0)
             return false;
         return true;
-      // return (numOfPathNeighbours(p) <= 1);
     }
-
-    /**
-     * returns number of neighbours which are already on the path
-     *
-     * @param p - position from user
-     */
-
-//    private int numOfPathNeighbours(Position p) {
-//        if (p == null)
-//            return 0;
-//        int count = 0;
-//        //if neighbour legal and has 0 count++;
-//        if (isLegal(p.getRowIndex(), p.getColumnIndex() + 2) &&
-//                MyMaze.getCellValue(p.getRowIndex(), p.getColumnIndex() + 2) == 0)
-//            count++;
-//        if (isLegal(p.getRowIndex(), p.getColumnIndex() - 2) &&
-//                MyMaze.getCellValue(p.getRowIndex(), p.getColumnIndex() - 2) == 0)
-//            count++;
-//        if (isLegal(p.getRowIndex() + 2, p.getColumnIndex()) &&
-//                MyMaze.getCellValue(p.getRowIndex() + 2, p.getColumnIndex()) == 0)
-//            count++;
-//        if (isLegal(p.getRowIndex() - 2, p.getColumnIndex()) &&
-//                MyMaze.getCellValue(p.getRowIndex() - 2, p.getColumnIndex()) == 0)
-//            count++;
-//        return count;
-//    }
 
     /**
      * checks if the position is on maze's bounds
@@ -181,11 +151,10 @@ public class MyMazeGenerator extends AMazeGenerator {
      */
 
     private boolean isLegal(int row, int column) {
-        if (row < 0 || row >= MyMaze.numOfRows()) // check if out of bound
+        if (row < 0 || row >= MyMaze.getRows()) // check if out of bound
             return false;
-        return column >= 0 && column < MyMaze.numOfColumns();
+        return column >= 0 && column < MyMaze.getColumns();
     }
-
 
     /**
      * returns a random position from candidates list.
@@ -203,22 +172,15 @@ public class MyMazeGenerator extends AMazeGenerator {
      */
 
     private void makeGoalPosition() {
-
         boolean found = false;
-        int rows = MyMaze.numOfRows();
-        int columns = MyMaze.numOfColumns();
-
+        int rows = MyMaze.getRows();
+        int columns = MyMaze.getColumns();
         while (!found) {
             Position p= MyMaze.pointsOnFrame(rows, columns);
-
             if (MyMaze.getCellValue(p.getRowIndex(), p.getColumnIndex()) == 0) {//legal goal position in last row.
                 MyMaze.setEndPoint(p.getRowIndex(), p.getColumnIndex());
                 found = true;
             }
-
         }
     }
 }
-
-
-

@@ -7,6 +7,12 @@ public abstract class AState {
     private double cost;
     private AState parent;
 
+    public AState() {
+        this.name = "(0,0)"; //default
+        parent = null;
+        this.cost = 0;
+    }
+
     public AState(String n, int rI, int cI, double c) {
         name = n;
         rowIdx = rI;
@@ -14,9 +20,11 @@ public abstract class AState {
         cost = c;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
+
+    public double getCost() {return this.cost;}
 
     public void setParent(AState p) {
         this.parent = p;
@@ -26,21 +34,8 @@ public abstract class AState {
         return parent;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null) return false;
-        AState other = (AState) o;
-/*        if (this.cost == (other.cost)) return true;
-        if(this.cost > other.cost) return true;
-        if (this.cost < other.cost) return false;*/
-        //if (other == null || getClass() != o.getClass()) return false;
-        return Double.compare(other.cost, cost) == 0;
+    public void setCost(double costI) {
+        this.cost = costI;
     }
-
-    //compare function?
-
-/*    @Override    needed?
-    public int hashCode() {
-        return Objects.hash(cost);
-    }*/
 }
+
