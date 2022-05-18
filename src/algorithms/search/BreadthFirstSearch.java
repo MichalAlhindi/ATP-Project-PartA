@@ -3,13 +3,11 @@ import java.util.*;
 
 public class BreadthFirstSearch extends ASearchingAlgorithm{
     protected Queue<AState> openList;
-    protected Map closedList;
 
     public BreadthFirstSearch(){
         super();
         this.name = "BreadthFirstSearch";
         openList =  new LinkedList<AState>();
-        closedList = new HashMap();
     }
 
     protected AState popOpenList(){
@@ -34,7 +32,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
             currState = openList.poll();
             numVisited++;
             if (currState.equals(searchable.getGoalState())) {
-                searchable.setGoalState(currState);
+                //searchable.setGoalState(currState);
                 sol = getSolution(currState);
                 searchable.ResetVisit(); //reset visited fields
                 return sol; //return solution
@@ -48,7 +46,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
                 }
                 if (successorsList.get(i).equals(searchable.getGoalState())) {
                     successorsList.get(i).setParent(currState);
-                    searchable.setGoalState(successorsList.get(i)); //set end state
+                    // searchable.setGoalState(successorsList.get(i)); //set end state
                     sol = getSolution(successorsList.get(i));
                     searchable.ResetVisit();
                     return sol; //return solution

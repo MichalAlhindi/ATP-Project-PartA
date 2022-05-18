@@ -1,6 +1,7 @@
 package algorithms.search;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class BestFirstSearch extends ASearchingAlgorithm{
@@ -8,22 +9,36 @@ public class BestFirstSearch extends ASearchingAlgorithm{
         super();
         this.name = "BestFirstSearch";
     }
+    class CostComparator implements Comparator<AState> {
 
-    public int comparecosts(AState o1, AState o2) {
+        // Overriding compare()method of Comparator
+        // for descending order of cgpa
+        public int compare(AState o1, AState o2) {
+            if (o1.getCost() < o2.getCost())
+                return 1;
+            if (o1.getCost() > o2.getCost())
+                return -1;
+            else
+                return 0;
+        }
+    }
+/*
+    public int compareCosts(AState o1, AState o2) {
         if (o1.getCost() > o2.getCost())
-            return 1;
-        if (o2.getCost() > o1.getCost())
             return -1;
+        if (o2.getCost() > o1.getCost())
+            return 1;
         else
             return 0;
     }
+*/
 
     @Override
     public Solution solve(ISearchable searchableM) {
         if (searchableM == null)
             return null;
         searchableM.ResetVisit(); // set all visit to false
-        PriorityQueue<AState> StepsGo = new PriorityQueue<AState>(this::comparecosts); // new link list to keep steps
+        PriorityQueue<AState> StepsGo = new PriorityQueue<AState>(new CostComparator()); // new link list to keep steps
         StepsGo.add(searchableM.getStartState()); // add the 1st state to queue
         searchableM.changeVisitTrue(searchableM.getStartState());
         Solution Sol; //new solution
@@ -40,7 +55,7 @@ public class BestFirstSearch extends ASearchingAlgorithm{
             AState temp = StepsGo.poll();
             numVisited++;//get a state from queue
             if (searchableM.getGoalState().equals(temp)) { //if state equal to end state
-                searchableM.setGoalState(temp); //set end state
+                //searchableM.setGoalState(temp); //set end state
                 Sol = getSolution(searchableM.getGoalState());
                 searchableM.ResetVisit(); //reset visited fields
                 return Sol; //return solution
@@ -51,7 +66,7 @@ public class BestFirstSearch extends ASearchingAlgorithm{
                     NeighboursList.get(i).setParent(temp) ; //updates its parent
                     //numVisited++;
                     if (NeighboursList.get(i).equals(searchableM.getGoalState())) {
-                        searchableM.setGoalState(NeighboursList.get(i)); //set end state
+                        //searchableM.setGoalState(NeighboursList.get(i)); //set end state
                         Sol = getSolution(searchableM.getGoalState()); //function to add the path inside solu Solution
 
                         searchableM.ResetVisit(); //reset visited fields

@@ -49,9 +49,10 @@ public class MyMazeGenerator extends AMazeGenerator {
         List<Position> neighbours , potentialsFather;
         potentialsFather = new ArrayList<Position>();
         neighbours = myNeighbours(p);
-        for (int i = 0; i < neighbours.size(); i++)
+        for (int i = 0; i < neighbours.size(); i++) {
             if (MyMaze.getCellValue(neighbours.get(i).getRowIndex(), neighbours.get(i).getColumnIndex()) == 0)
                 potentialsFather.add(cells[neighbours.get(i).getRowIndex()][neighbours.get(i).getColumnIndex()]);
+        }
         if (potentialsFather.size()==0){
             return null;
         }
@@ -112,9 +113,10 @@ public class MyMazeGenerator extends AMazeGenerator {
         if (p != null) {
             List<Position> neighbours;
             neighbours = myNeighbours(p);
-            for (int i = 0; i < neighbours.size(); i++)
+            for (int i = 0; i < neighbours.size(); i++) {
                 if (MyMaze.getCellValue(neighbours.get(i).getRowIndex(), neighbours.get(i).getColumnIndex()) == 1 && isChangeAble(neighbours.get(i)))
                     candidates.add(neighbours.get(i)); //only legal neighbours and that have 1
+            }
         }
     }
 
