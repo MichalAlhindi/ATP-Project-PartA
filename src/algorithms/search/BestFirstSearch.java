@@ -1,7 +1,6 @@
 package algorithms.search;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class BestFirstSearch extends ASearchingAlgorithm{
@@ -25,9 +24,9 @@ public class BestFirstSearch extends ASearchingAlgorithm{
 /*
     public int compareCosts(AState o1, AState o2) {
         if (o1.getCost() > o2.getCost())
-            return -1;
-        if (o2.getCost() > o1.getCost())
             return 1;
+        if (o2.getCost() > o1.getCost())
+            return -1;
         else
             return 0;
     }

@@ -6,6 +6,7 @@ import algorithms.mazeGenerators.MyMazeGenerator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class BestFirstSearchTest {
 
@@ -41,6 +42,19 @@ public class BestFirstSearchTest {
         BestFirstSearch bestFirstSearch = new BestFirstSearch();
        /* int x=bestFirstSearch.compareCosts(state1,state2);
         assertEquals(-1,x);*/
+
+    }
+
+    BestFirstSearch bestFirstSearch = new BestFirstSearch();
+    Maze temp = new Maze(50, 50);
+    ISearchable MazeSearch = new SearchableMaze(temp);
+    Solution tempSolve = new Solution();
+
+    @Test
+    void solve() {
+        assertNotEquals(bestFirstSearch.solve(MazeSearch), null);
+        assertNotEquals(bestFirstSearch.solve(MazeSearch), 0);
+
 
     }
 }
