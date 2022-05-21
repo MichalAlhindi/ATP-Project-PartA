@@ -19,7 +19,7 @@ public class Position3D {
         return rowIndex;
     }
 
-    public int getColIndex() {
+    public int getColumnIndex() {
         return colIndex;
     }
 

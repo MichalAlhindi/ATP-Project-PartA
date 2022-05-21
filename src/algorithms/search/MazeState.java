@@ -29,9 +29,9 @@ public class MazeState extends AState{
     }
 
     public boolean equals(Object o) {
-        if (!(o instanceof MazeState))
+        if (!(o instanceof algorithms.search.MazeState))
             return false;
-        return ((MazeState) o).row == row && ((MazeState) o).col == col;
+        return ((algorithms.search.MazeState) o).row == row && ((algorithms.search.MazeState) o).col == col;
     }
 
     public int hashCode() {

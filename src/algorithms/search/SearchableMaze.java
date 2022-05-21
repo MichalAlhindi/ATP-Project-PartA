@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class SearchableMaze implements  ISearchable{
     private Maze maze;
-    private MazeState startPoint;
+    private  MazeState startPoint;
     private MazeState endPoint;
     private boolean[][] visitedMap;
 
@@ -62,13 +62,7 @@ public class SearchableMaze implements  ISearchable{
         return false;
     }
 
-    /**
-     * returns all the legal diagonal neighbors
-     * @param x row index
-     * @param y column index
-     * @return array of all the legal and unvisited diagonal neighbors of the current state
-     */
-    private ArrayList<AState> getAllDiagonal(int x, int y) {
+    /*private ArrayList<AState> getAllDiagonal(int x, int y) {
         ArrayList<AState> temp = new ArrayList<AState>();
         MazeState tempM;
         if (isLegal(x - 1, y - 1) && visitedMap[x - 1][y - 1] == false && maze.getCellValue(x - 1, y - 1) == 0)
@@ -102,7 +96,7 @@ public class SearchableMaze implements  ISearchable{
             }
         }
         return temp;
-    }
+    }*/
 
     @Override
     public ArrayList<AState> getAllPossibleStates(AState s) {
@@ -140,7 +134,7 @@ public class SearchableMaze implements  ISearchable{
                 if (visitedMap[x + 1][y] == false || visitedMap[x][y + 1] == false) {
                     if (maze.getCellValue(x, y + 1) == 0 || maze.getCellValue(x + 1, y) == 0) {
                         tempM = new MazeState(x + 1, y + 1);
-                        tempM.setCost(15);
+                        tempM.setCost(camefromcost+15);
                         temp.add(tempM);
                     }
                 }
@@ -165,9 +159,6 @@ public class SearchableMaze implements  ISearchable{
             if (TempAdd != null)
                 temp.add(TempAdd);
 
-//            tempD = getAllDiagonal(x, y); //get all diagonal states
-//            for (int i = 0; i < tempD.size(); i++)
-//                temp.add(tempD.get(i)); //add them to array
             if (isLegal(x - 1, y - 1) && visitedMap[x - 1][y - 1] == false && maze.getCellValue(x - 1, y - 1) == 0) {
                 if (visitedMap[x - 1][y] == false || visitedMap[x][y - 1] == false) {
                     if (maze.getCellValue(x - 1, y) == 0 || maze.getCellValue(x, y - 1) == 0) {
@@ -190,7 +181,7 @@ public class SearchableMaze implements  ISearchable{
      * @param y column index
      * @return the maze state of the current index
      */
-    private MazeState CheckLegal(int x, int y) {
+    private MazeState CheckLegal(int x, int y, double camefromcost) {
         MazeState tempM;
         if (isLegal(x, y)) {
             if (maze.getCellValue(x, y) == 0) {
@@ -208,7 +199,8 @@ public class SearchableMaze implements  ISearchable{
         if (visit != null && ((MazeState) visit).getRow() < maze.getRows() && ((MazeState) visit).getCol() < maze.getColumns()  && ((MazeState) visit).getRow() >= 0 && ((MazeState) visit).getCol() >= 0) {
             boolean x = visitedMap[((MazeState) visit).getRow()][((MazeState) visit).getCol()];
             return x;
-        } else
+        }
+        else
             return false;
     }
 

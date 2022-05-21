@@ -28,6 +28,8 @@ public class MyMazeGenerator extends AMazeGenerator {
                 cells[i][j] = new Position(i, j);
             }
         }
+        if (rows==2 && columns ==2)
+            MyMaze.setMazeArr(MyMaze.getStartPosition().getRowIndex(),MyMaze.getStartPosition().getColumnIndex(),0);
         candidates.add(MyMaze.getStartPosition()); //add start position to array
         Position currentPosition;
         Position prePosition=null;//////
@@ -35,13 +37,26 @@ public class MyMazeGenerator extends AMazeGenerator {
             currentPosition = getRandomPos();//from candidates list
             if (isChangeAble(currentPosition)) {
                 addToPath(currentPosition);//change value to 0
-                prePosition=getMyFather(currentPosition);
-                connect(prePosition,currentPosition);
+                prePosition = getMyFather(currentPosition);
+                connect(prePosition, currentPosition);
                 addCandidates(currentPosition);//neighbours are candidates
             }
             candidates.remove(currentPosition);
         }
-        makeGoalPosition();
+            if (rows==2 && columns ==2) {
+                MyMaze.setMazeArr(MyMaze.getGoalPosition().getRowIndex(), MyMaze.getGoalPosition().getColumnIndex(), 0);
+                if (MyMaze.getStartPosition().getColumnIndex()!=MyMaze.getGoalPosition().getColumnIndex() &&
+                        (MyMaze.getStartPosition().getRowIndex()!=MyMaze.getGoalPosition().getRowIndex())){
+                    if ((MyMaze.getStartPosition().getColumnIndex()==0 &&
+                            (MyMaze.getStartPosition().getRowIndex()==0) || (MyMaze.getGoalPosition().getColumnIndex()==0 &&
+                                    (MyMaze.getGoalPosition().getRowIndex()==0))))
+                        MyMaze.setMazeArr(0,1, 0);
+                    else
+                        MyMaze.setMazeArr(0,0, 0);
+                }
+            }
+            else
+                makeGoalPosition();
         return MyMaze;
     }
 
@@ -179,9 +194,10 @@ public class MyMazeGenerator extends AMazeGenerator {
         int columns = MyMaze.getColumns();
         while (!found) {
             Position p= MyMaze.pointsOnFrame(rows, columns);
-            if (MyMaze.getCellValue(p.getRowIndex(), p.getColumnIndex()) == 0) {//legal goal position in last row.
-                MyMaze.setEndPoint(p.getRowIndex(), p.getColumnIndex());
-                found = true;
+            if (MyMaze.getCellValue(p.getRowIndex(), p.getColumnIndex()) == 0 &&
+                    (p.getRowIndex() != MyMaze.getStartPosition().getRowIndex() || p.getColumnIndex() != MyMaze.getStartPosition().getColumnIndex())) {//legal goal position in last row.
+                        MyMaze.setEndPoint(p.getRowIndex(), p.getColumnIndex());
+                        found = true;
             }
         }
     }
