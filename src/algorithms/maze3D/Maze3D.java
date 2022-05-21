@@ -1,5 +1,5 @@
 package algorithms.maze3D;
-import algorithms.mazeGenerators.Position;
+
 public class Maze3D {
     private int depthNum;
     private int rowNum;
@@ -74,10 +74,10 @@ public class Maze3D {
             for(int row = 0; row < map[0].length; row++) {
                 System.out.print("{ ");
                 for (int col = 0; col < map[0][0].length; col++) {
-                    if (depth == startPosition.getDepthIndex() && row == startPosition.getRowIndex() && col == startPosition.getColIndex()) // if the position is the start - mark with S
+                    if (depth == startPosition.getDepthIndex() && row == startPosition.getRowIndex() && col == startPosition.getColumnIndex()) // if the position is the start - mark with S
                         System.out.print("S ");
                     else {
-                        if (depth == goalPosition.getDepthIndex() && row == goalPosition.getRowIndex() && col == goalPosition.getColIndex()) // if the position is the goal - mark with E
+                        if (depth == goalPosition.getDepthIndex() && row == goalPosition.getRowIndex() && col == goalPosition.getColumnIndex()) // if the position is the goal - mark with E
                             System.out.print("E ");
                         else
                             System.out.print(map[depth][row][col] + " ");
