@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class SearchableMaze implements  ISearchable{
     private Maze maze;
-    private MazeState startPoint;
+    private  MazeState startPoint;
     private MazeState endPoint;
     private boolean[][] visitedMap;
 
@@ -119,7 +119,7 @@ public class SearchableMaze implements  ISearchable{
             {
                 if (isLegal(x-1,y)&&visitedMap[x - 1][y] == false&&maze.getCellValue(x - 1, y) == 0 || isLegal(x,y+1)&&visitedMap[x][y+1] == false&&maze.getCellValue(x, y + 1) == 0){
                     tempM = new MazeState(x - 1, y - 1);
-                    tempM.setCost(15);
+                    tempM.setCost(camefromcost+15);
                     temp.add(tempM);
 
                 }
@@ -134,7 +134,7 @@ public class SearchableMaze implements  ISearchable{
                 if (visitedMap[x + 1][y] == false || visitedMap[x][y + 1] == false) {
                     if (maze.getCellValue(x, y + 1) == 0 || maze.getCellValue(x + 1, y) == 0) {
                         tempM = new MazeState(x + 1, y + 1);
-                        tempM.setCost(15);
+                        tempM.setCost(camefromcost+15);
                         temp.add(tempM);
                     }
                 }
@@ -149,7 +149,7 @@ public class SearchableMaze implements  ISearchable{
                 if (visitedMap[x][y - 1] == false || visitedMap[x + 1][y] == false) {
                     if (maze.getCellValue(x, y - 1) == 0 || maze.getCellValue(x + 1, y) == 0) {
                         tempM = new MazeState(x + 1, y - 1);
-                        tempM.setCost(15);
+                        tempM.setCost(camefromcost+15);
                         temp.add(tempM);
                     }
                 }
@@ -163,7 +163,7 @@ public class SearchableMaze implements  ISearchable{
                 if (visitedMap[x - 1][y] == false || visitedMap[x][y - 1] == false) {
                     if (maze.getCellValue(x - 1, y) == 0 || maze.getCellValue(x, y - 1) == 0) {
                         tempM = new MazeState(x - 1, y - 1);
-                        tempM.setCost(15);
+                        tempM.setCost(camefromcost+15);
                         temp.add(tempM);
                     }
                 }
@@ -186,7 +186,7 @@ public class SearchableMaze implements  ISearchable{
         if (isLegal(x, y)) {
             if (maze.getCellValue(x, y) == 0) {
                 tempM = new MazeState(x, y);
-                tempM.setCost(10);
+                tempM.setCost(camefromcost+10);
                 return tempM;
             }
         }
