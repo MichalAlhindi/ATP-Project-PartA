@@ -15,12 +15,17 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
 
     @Override
     public Maze3D generate(int depth, int row, int column) {
-            if (row<2)
-                row=2;
-            if(column<2)
-                column=2;
-            if(depth <2)
-                depth=2;
+        if (row < 2)
+            row = 2;
+        if (column < 2)
+            column = 2;
+        if (depth < 2)
+            depth = 2;
+        if (depth == 2 && row == 2 && column == 2){
+            depth = 3;
+            row = 3;
+            column = 3;
+    }
             MyMaze= new Maze3D(depth,row,column);
             cells = new Position3D[depth][row][column];
             for (int d=0; d<depth; d++) {
@@ -32,7 +37,7 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
                 }
             }
             candidates.add(MyMaze.getStartPosition()); //add start position to array
-            Position3D currentPosition;
+            Position3D currentPosition, goal = null;
             Position3D prePosition=null;//////
             while (candidates.size() > 0) { //while array not empty
                 currentPosition = getRandomPos();//from candidates list
@@ -43,20 +48,44 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
                     addCandidates(currentPosition);//neighbours are candidates
                 }
                 candidates.remove(currentPosition);
+                goal=currentPosition;
             }
-/*                if (row==2 && column ==2) {
-                    MyMaze.setMazeArr3D(MyMaze.getGoalPosition().getRowIndex(), MyMaze.getGoalPosition().getColumnIndex(), 0);
-                    if (MyMaze.getStartPosition().getColumnIndex()!=MyMaze.getGoalPosition().getColumnIndex() &&
-                            (MyMaze.getStartPosition().getRowIndex()!=MyMaze.getGoalPosition().getRowIndex())){
-                        if ((MyMaze.getStartPosition().getColumnIndex()==0 &&
-                                (MyMaze.getStartPosition().getRowIndex()==0) || (MyMaze.getGoalPosition().getColumnIndex()==0 &&
-                                (MyMaze.getGoalPosition().getRowIndex()==0))))
-                            MyMaze.setMazeArr3D(0,1, 0);
-                        else
-                            MyMaze.setMazeArr3D(0,0, 0);
-                    }
-                }*/
-            makeGoalPosition();
+
+         if (depth==2 && (row==2 || column==2)) {
+             MyMaze.setGoal(goal);
+             if (goal.getColumnIndex()!= MyMaze.getStartPosition().getColumnIndex() || goal.getRowIndex()!= MyMaze.getStartPosition().getRowIndex()
+              || goal.getDepthIndex()!= MyMaze.getStartPosition().getDepthIndex())
+                return MyMaze;
+             else{
+                 if (column==2) {
+                     Position3D newgoal = new Position3D(MyMaze.getStartPosition().getDepthIndex(), MyMaze.getStartPosition().getRowIndex() - 1, MyMaze.getStartPosition().getColumnIndex());
+                     MyMaze.setMazeArr3D(MyMaze.getStartPosition().getDepthIndex(), MyMaze.getStartPosition().getRowIndex() - 1,MyMaze.getStartPosition().getColumnIndex() ,0);
+                     MyMaze.setGoal(newgoal);
+                     return MyMaze;
+                 }
+                 if (row ==2){
+                     Position3D newgoal = new Position3D(MyMaze.getStartPosition().getDepthIndex(), MyMaze.getStartPosition().getRowIndex() ,MyMaze.getStartPosition().getColumnIndex()-1);
+                     MyMaze.setMazeArr3D(MyMaze.getStartPosition().getDepthIndex(), MyMaze.getStartPosition().getRowIndex() ,MyMaze.getStartPosition().getColumnIndex()-1,0);
+                     MyMaze.setGoal(newgoal);
+                     return MyMaze;
+                 }
+             }
+         }
+         if (row==2 && column==2 && depth==3){
+             if( MyMaze.getStartPosition().getDepthIndex()==1 ){
+                 if ((MyMaze.getStartPosition().getRowIndex()==0 && MyMaze.getStartPosition().getRowIndex()==0) ||
+                         (MyMaze.getStartPosition().getRowIndex()==1 && MyMaze.getStartPosition().getRowIndex()==1)) {
+                     MyMaze.setMazeArr3D(1,1,0,0);
+                     MyMaze.setGoal(new Position3D(1, 1, 0));
+                     return MyMaze;
+                 }
+                 MyMaze.setMazeArr3D(1,0,0,0);
+                 MyMaze.setGoal(new Position3D(0, 0, 0));
+                 return MyMaze;
+             }
+
+         }
+         makeGoalPosition();
             return MyMaze;
         }
 

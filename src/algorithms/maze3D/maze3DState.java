@@ -21,7 +21,7 @@ public class maze3DState extends AState {
     @Override
     public String toString() {
         String x;
-        x = depth + ", " + row + "," + col;
+        x = depth + "," + row + "," + col;
         return x;
     }
 

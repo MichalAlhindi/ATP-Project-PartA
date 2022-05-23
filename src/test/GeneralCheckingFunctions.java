@@ -6,7 +6,7 @@ public class GeneralCheckingFunctions {
        // false.
 // Note, that if this will be false, you will automatically get minus 10 in the score
                // of the first part of the project.
-        boolean weChoseToDoTheMaze3DAssignment = false;
+        boolean weChoseToDoTheMaze3DAssignment = true;
         return weChoseToDoTheMaze3DAssignment;
     }
     public static String getGithubLink(){
