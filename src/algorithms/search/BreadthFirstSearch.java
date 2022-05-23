@@ -1,20 +1,30 @@
 package algorithms.search;
 import java.util.*;
 
+/**
+ * BreadthFirstSearch class is for finding solution using the BreadthFirstSearch algorithm
+ */
 public class BreadthFirstSearch extends ASearchingAlgorithm{
     protected Queue<AState> openList;
 
+    /**
+     * constructor for initialize the fields
+     */
     public BreadthFirstSearch(){
         super();
         this.name = "BreadthFirstSearch";
         openList =  new LinkedList<AState>();
     }
 
-    protected AState popOpenList(){
+/*    protected AState popOpenList(){
         numVisited++;
         return openList.poll();
-    }
+    }*/
 
+    /**
+     * insert to the queue
+     * @param s a state to insert
+     */
     protected void insertOpenList(AState s){
         openList.add(s);
     }
@@ -57,6 +67,11 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
     }
 }*/
 
+    /**
+     * find a solution using breadth first search algorithm
+     * @param searchable the searchable problem
+     * @return the solution for the problem
+     */
     public Solution solve(ISearchable searchable) {
 
         searchable.ResetVisit(); // set all visit to false
@@ -85,8 +100,8 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
                         return sol;
                     }
                     searchable.changeVisitTrue(successorsList.get(i));
-
-                    openList.add(successorsList.get(i));
+                    insertOpenList(successorsList.get(i));
+                   /* openList.add(successorsList.get(i));*/
 
                 }
 

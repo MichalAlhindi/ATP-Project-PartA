@@ -1,5 +1,8 @@
 package algorithms.maze3D;
 
+/**
+ * the Position3D class handle a position of 3d maze
+ */
 public class Position3D {
     private int depthIndex;
     private int rowIndex;

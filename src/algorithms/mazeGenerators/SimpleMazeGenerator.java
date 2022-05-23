@@ -1,8 +1,17 @@
 package algorithms.mazeGenerators;
 
+/**
+ * SimpleMazeGenerator class handle a random maze
+ */
 public class SimpleMazeGenerator extends AMazeGenerator {
     public SimpleMazeGenerator(){}
 
+    /**
+     * create a simple maze giving random values for each cell
+     * @param rows number of rows in the maze
+     * @param columns number of columns in the maze
+     * @return the simple maze that was created
+     */
     @Override
     public Maze generate(int rows, int columns) {
         Maze SimpleMaze= new Maze(rows,columns);

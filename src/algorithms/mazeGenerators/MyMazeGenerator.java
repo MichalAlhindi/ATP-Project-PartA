@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * MyMazeGenerator class handle our maze
+ */
 public class MyMazeGenerator extends AMazeGenerator {
-
     private Maze MyMaze;
     private Position[][] cells;
     private List<Position> candidates;
@@ -14,6 +16,12 @@ public class MyMazeGenerator extends AMazeGenerator {
         candidates = new ArrayList<Position>();
     }
 
+    /**
+     * create our maze with prim algorithm
+     * @param rows number of rows in the maze
+     * @param columns number of columns in the maze
+     * @return
+     */
     @Override
     public Maze generate(int rows, int columns) {
         if (rows<2)
@@ -60,6 +68,11 @@ public class MyMazeGenerator extends AMazeGenerator {
         return MyMaze;
     }
 
+    /**
+     * find the position that "found" the given position
+     * @param p the given position
+     * @return the "father" of the given position
+     */
     private Position getMyFather(Position p){
         List<Position> neighbours , potentialsFather;
         potentialsFather = new ArrayList<Position>();
@@ -75,6 +88,13 @@ public class MyMazeGenerator extends AMazeGenerator {
         int index = random.nextInt(potentialsFather.size()); // get a random father
         return potentialsFather.get(index);
     }
+
+    /**
+     * connect between to positions - put 0 between them and break the wall
+     * @param p1 position 1
+     * @param p2 position 2
+     * @return if the connection has succeeed, return true, else return false
+     */
     private boolean connect(Position p1, Position p2){
         if (p1==null ||p2==null)
             return false;
@@ -93,11 +113,9 @@ public class MyMazeGenerator extends AMazeGenerator {
             }
             return true;
         }
-
     }
     /**
      * returns array list of 2-4 neighbours of a position
-     *
      * @param p - position from user
      */
 
@@ -120,7 +138,6 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * add to candidates<position> list all position's neighbours who might become a path.
-     *
      * @param p - position from user
      */
 
@@ -137,7 +154,6 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * changeable cell (from 1 to 0) is a cell that has maximum of one 0 neighbour,
-     *
      * @param p - position from user
      */
 
@@ -148,7 +164,6 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * checks if currently position can be changed to 0, if so, then do it
-     *
      * @param p - position from user
      */
 
@@ -162,7 +177,6 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * checks if the position is on maze's bounds
-     *
      * @param column - column of maze
      * @param row    - row of maze
      */
@@ -175,7 +189,6 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * returns a random position from candidates list.
-     *
      * @return - random position
      */
     private Position getRandomPos() {
