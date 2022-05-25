@@ -4,10 +4,8 @@ package algorithms.search;
  *class represents a state of the maze
  */
 public class MazeState extends AState{
-
     private int row;
     private int col;
-
 
     /**
      *constructor of the maze state
@@ -19,6 +17,7 @@ public class MazeState extends AState{
         this.row = row;
         this.col = col;
     }
+
     /**
      *@return a string of the maze state
      */
@@ -28,18 +27,21 @@ public class MazeState extends AState{
         x = row + "," + col;
         return x;
     }
+
     /**
      *@return the row of the maze state
      */
     public int getRow() {
         return row;
     }
+
     /**
      *@return the col of the maze state
      */
     public int getCol() {
         return col;
     }
+
     /**
      *@return if object maze state equals to this maze state
      */

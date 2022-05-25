@@ -151,7 +151,6 @@ public class Maze {
                 if (j!=columns-1){
                     System.out.print(',');
                 }
-
             }
             if (i!=rows-1)
                 System.out.print("}\n," );
@@ -160,5 +159,4 @@ public class Maze {
         }
         System.out.print("}\n");
     }
-
 }

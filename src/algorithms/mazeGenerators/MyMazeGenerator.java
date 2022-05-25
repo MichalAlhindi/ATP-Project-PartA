@@ -140,7 +140,6 @@ public class MyMazeGenerator extends AMazeGenerator {
      * add to candidates<position> list all position's neighbours who might become a path.
      * @param p - position from user
      */
-
     private void addCandidates(Position p) {
         if (p != null) {
             List<Position> neighbours;
@@ -156,7 +155,6 @@ public class MyMazeGenerator extends AMazeGenerator {
      * changeable cell (from 1 to 0) is a cell that has maximum of one 0 neighbour,
      * @param p - position from user
      */
-
     private void addToPath(Position p) {
         if (p != null && isChangeAble(p))
             MyMaze.setMazeArr(p.getRowIndex(), p.getColumnIndex(), 0);
@@ -166,7 +164,6 @@ public class MyMazeGenerator extends AMazeGenerator {
      * checks if currently position can be changed to 0, if so, then do it
      * @param p - position from user
      */
-
     private boolean isChangeAble(Position p) {
         if (p == null)
             return false;
@@ -180,7 +177,6 @@ public class MyMazeGenerator extends AMazeGenerator {
      * @param column - column of maze
      * @param row    - row of maze
      */
-
     private boolean isLegal(int row, int column) {
         if (row < 0 || row >= MyMaze.getRows()) // check if out of bound
             return false;
@@ -200,7 +196,6 @@ public class MyMazeGenerator extends AMazeGenerator {
     /**
      * set a random goal position
      */
-
     private void makeGoalPosition() {
         boolean found = false;
         int rows = MyMaze.getRows();
@@ -208,7 +203,8 @@ public class MyMazeGenerator extends AMazeGenerator {
         while (!found) {
             Position p= MyMaze.pointsOnFrame(rows, columns);
             if (MyMaze.getCellValue(p.getRowIndex(), p.getColumnIndex()) == 0 &&
-                    (p.getRowIndex() != MyMaze.getStartPosition().getRowIndex() || p.getColumnIndex() != MyMaze.getStartPosition().getColumnIndex())) {//legal goal position in last row.
+                    (p.getRowIndex() != MyMaze.getStartPosition().getRowIndex() ||
+                            p.getColumnIndex() != MyMaze.getStartPosition().getColumnIndex())) { //legal goal position in last row
                         MyMaze.setEndPoint(p.getRowIndex(), p.getColumnIndex());
                         found = true;
             }

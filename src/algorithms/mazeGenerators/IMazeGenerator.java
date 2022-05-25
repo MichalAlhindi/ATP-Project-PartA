@@ -11,6 +11,7 @@ public interface IMazeGenerator {
      * @return the maze that was built
      */
     Maze generate(int rows, int columns);
+
     /**
      * measure the time of creating maze
      * @param rows number of rows in the maze

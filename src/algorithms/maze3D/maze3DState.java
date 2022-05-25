@@ -8,8 +8,12 @@ public class maze3DState extends AState {
     private int col;
     private int depth;
 
-
-
+    /**
+     * constructor to initialize the 3D state fields
+     * @param depth the maze depth
+     * @param row the number of rows in each depth of the maze
+     * @param col the number of columns in each depth of the maze
+     */
     public maze3DState(int depth, int row, int col) {
         super();
         this.depth = depth;
@@ -18,6 +22,9 @@ public class maze3DState extends AState {
 
     }
 
+    /**
+     * @return the state
+     */
     @Override
     public String toString() {
         String x;
@@ -25,18 +32,32 @@ public class maze3DState extends AState {
         return x;
     }
 
+    /**
+     * @return the number of rows in each depth of the maze
+     */
     public int getRow() {
         return row;
     }
 
+    /**
+     * @return the number of columns in each depth of the maze
+     */
     public int getCol() {
         return col;
     }
 
+    /**
+     * @return the depth of the maze
+     */
     public int getDepth() {
         return depth;
     }
 
+    /**
+     * check if an input state is the same as this one
+     * @param o the state
+     * @return weather the input state equals to this one
+     */
     public boolean equals(Object o) {
         if (!(o instanceof maze3DState))
             return false;

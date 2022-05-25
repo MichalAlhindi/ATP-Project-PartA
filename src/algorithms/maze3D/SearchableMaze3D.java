@@ -22,6 +22,7 @@ public class SearchableMaze3D implements ISearchable {
             visitedMap = new boolean[m.getDepth()][m.getRow()][m.getCol()];
         }
     }
+
     /**
      * @return the start state
      */
@@ -29,6 +30,7 @@ public class SearchableMaze3D implements ISearchable {
     public AState getStartState() {
         return startPoint;
     }
+
     /**
      * @return the end state
      */
@@ -61,24 +63,22 @@ public class SearchableMaze3D implements ISearchable {
         else
             return false;
     }
+
     /**
      * @param s the state
      * @return all possible states (legal neighbors) of a state -6 options
      */
-
     @Override
     public ArrayList<AState> getAllPossibleStates(AState s) {
         ArrayList<AState> temp = new ArrayList<AState>(); //array to keep possible states
-        ArrayList<AState> tempD; //array to keep Diagonal states
         maze3DState mazestate;
-        if (s != null && s instanceof maze3DState) //make sure State is a MazeState
+        if (s != null && s instanceof maze3DState) //make sure State is a 3DMazeState
         {
-            maze3DState tempM;
             mazestate = ((maze3DState) s);
             int x = mazestate.getRow();
             int y = mazestate.getCol();
             int z = mazestate.getDepth();
-            maze3DState TempAdd; //temp mazestate
+            maze3DState TempAdd; //temp maze3Dstate
             TempAdd = CheckLegal(z, x - 1, y); //check if legal to add
             if (TempAdd != null)
                 temp.add(TempAdd); //add to arraylist
@@ -100,6 +100,7 @@ public class SearchableMaze3D implements ISearchable {
         }
         return temp;
     }
+
     /**
      * if the index isn't a wall, creates a maze state .
      * @param z depth index
@@ -126,6 +127,7 @@ public class SearchableMaze3D implements ISearchable {
         if (visit != null && isLegal(((maze3DState) visit).getDepth(), ((maze3DState) visit).getRow(),((maze3DState) visit).getCol())==true)
             visitedMap[((maze3DState) visit).getDepth()][((maze3DState) visit).getRow()][((maze3DState) visit).getCol()] = true;
     }
+
     /**
      * @param depth the depth of a state
      * @param row the row of a state
@@ -139,6 +141,7 @@ public class SearchableMaze3D implements ISearchable {
             return true;
         return false;
     }
+
     /**
      * reset the maze to be unvisited
      */

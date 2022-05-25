@@ -16,7 +16,6 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
         openList =  new LinkedList<AState>();
     }
 
-
     /**
      * insert to the queue
      * @param s a state to insert
@@ -25,14 +24,12 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
         openList.add(s);
     }
 
-
     /**
      * find a solution using breadth first search algorithm
      * @param searchable the searchable problem
      * @return the solution for the problem
      */
     public Solution solve(ISearchable searchable) {
-
         searchable.ResetVisit(); // set all visit to false
         AState currState = searchable.getStartState();
         insertOpenList(currState);
@@ -59,9 +56,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
                     }
                     searchable.changeVisitTrue(successorsList.get(i));
                     insertOpenList(successorsList.get(i));
-
                 }
-
             }
         }
         return null;

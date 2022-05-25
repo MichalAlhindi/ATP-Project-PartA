@@ -14,6 +14,7 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
     public MyMaze3DGenerator() {
         candidates = new ArrayList<Position3D>();
     }
+
     /**
      * create our maze with prim algorithm
      * @param depth number of depth in the maze
@@ -46,14 +47,14 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
             }
             candidates.add(MyMaze.getStartPosition()); //add start position to array
             Position3D currentPosition, goal = null;
-            Position3D prePosition=null;//////
+            Position3D prePosition;
             while (candidates.size() > 0) { //while array not empty
-                currentPosition = getRandomPos();//from candidates list
+                currentPosition = getRandomPos(); //from candidates list
                 if (isChangeAble(currentPosition)) {
-                    addToPath(currentPosition);//change value to 0
+                    addToPath(currentPosition); //change value to 0
                     prePosition=getMyFather(currentPosition);
                     connect(prePosition,currentPosition);
-                    addCandidates(currentPosition);//neighbours are candidates
+                    addCandidates(currentPosition); //neighbours are candidates
                 }
                 candidates.remove(currentPosition);
                 goal=currentPosition;
@@ -61,20 +62,25 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
 
          if (depth==2 && (row==2 || column==2)) {
              MyMaze.setGoal(goal);
-             if (goal.getColumnIndex()!= MyMaze.getStartPosition().getColumnIndex() || goal.getRowIndex()!= MyMaze.getStartPosition().getRowIndex()
+             if (goal.getColumnIndex()!= MyMaze.getStartPosition().getColumnIndex() ||
+                     goal.getRowIndex()!= MyMaze.getStartPosition().getRowIndex()
               || goal.getDepthIndex()!= MyMaze.getStartPosition().getDepthIndex()){
                 return MyMaze;
              }
              else{
                  if (column==2) {
-                     Position3D newgoal = new Position3D(MyMaze.getStartPosition().getDepthIndex(), MyMaze.getStartPosition().getRowIndex() - 1, MyMaze.getStartPosition().getColumnIndex());
-                     MyMaze.setMazeArr3D(MyMaze.getStartPosition().getDepthIndex(), MyMaze.getStartPosition().getRowIndex() - 1,MyMaze.getStartPosition().getColumnIndex() ,0);
+                     Position3D newgoal = new Position3D(MyMaze.getStartPosition().getDepthIndex(),
+                             MyMaze.getStartPosition().getRowIndex() - 1, MyMaze.getStartPosition().getColumnIndex());
+                     MyMaze.setMazeArr3D(MyMaze.getStartPosition().getDepthIndex(),
+                             MyMaze.getStartPosition().getRowIndex() - 1,MyMaze.getStartPosition().getColumnIndex() ,0);
                      MyMaze.setGoal(newgoal);
                      return MyMaze;
                  }
-                 if (row ==2){
-                     Position3D newgoal = new Position3D(MyMaze.getStartPosition().getDepthIndex(), MyMaze.getStartPosition().getRowIndex() ,MyMaze.getStartPosition().getColumnIndex()-1);
-                     MyMaze.setMazeArr3D(MyMaze.getStartPosition().getDepthIndex(), MyMaze.getStartPosition().getRowIndex() ,MyMaze.getStartPosition().getColumnIndex()-1,0);
+                 if (row == 2){
+                     Position3D newgoal = new Position3D(MyMaze.getStartPosition().getDepthIndex(),
+                             MyMaze.getStartPosition().getRowIndex() ,MyMaze.getStartPosition().getColumnIndex()-1);
+                     MyMaze.setMazeArr3D(MyMaze.getStartPosition().getDepthIndex(),
+                             MyMaze.getStartPosition().getRowIndex() ,MyMaze.getStartPosition().getColumnIndex()-1,0);
                      MyMaze.setGoal(newgoal);
                      return MyMaze;
                  }
@@ -92,11 +98,11 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
                  MyMaze.setGoal(new Position3D(0, 0, 0));
                  return MyMaze;
              }
-
          }
          makeGoalPosition();
             return MyMaze;
         }
+
     /**
      * find the position that "found" the given position
      * @param p the given position3D
@@ -117,11 +123,12 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
             int index = random.nextInt(potentialsFather.size()); // get a random father
             return potentialsFather.get(index);
         }
+
     /**
      * connect between to positions - put 0 between them and break the wall
      * @param p1 position 1
      * @param p2 position 2
-     * @return if the connection has succeeed, return true, else return false
+     * @return if the connection has succeed, return true, else return false
      */
         private boolean connect(Position3D p1, Position3D p2){
             if (p1==null ||p2==null)
@@ -154,18 +161,18 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
                 return true;
             }
         }
+
         /**
          * returns array list of 2-4 neighbours of a position
          *
          * @param p - position from user
          */
-
         private List<Position3D> myNeighbours(Position3D p) {
             if (p == null)
                 return null;
             List<Position3D> neighbours;
             neighbours = new ArrayList<Position3D>();
-            //check if can go up down left or right if so, add to list
+            //check if can go up down left right and in or out. if so, add to list
             if (isLegal(p.getDepthIndex(), p.getRowIndex() - 2, p.getColumnIndex()))
                 neighbours.add(cells[p.getDepthIndex()][p.getRowIndex() - 2][p.getColumnIndex()]);
             if (isLegal(p.getDepthIndex(), p.getRowIndex() + 2, p.getColumnIndex()))
@@ -186,13 +193,13 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
          *
          * @param p - position from user
          */
-
         private void addCandidates(Position3D p) {
             if (p != null) {
                 List<Position3D> neighbours;
                 neighbours = myNeighbours(p);
                 for (int i = 0; i < neighbours.size(); i++) {
-                    if (MyMaze.getCellValue(neighbours.get(i).getDepthIndex(), neighbours.get(i).getRowIndex(), neighbours.get(i).getColumnIndex()) == 1 && isChangeAble(neighbours.get(i)))
+                    if (MyMaze.getCellValue(neighbours.get(i).getDepthIndex(), neighbours.get(i).getRowIndex(),
+                            neighbours.get(i).getColumnIndex()) == 1 && isChangeAble(neighbours.get(i)))
                         candidates.add(neighbours.get(i)); //only legal neighbours and that have 1
                 }
             }
@@ -203,7 +210,6 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
          *
          * @param p - position from user
          */
-
         private void addToPath(Position3D p) {
             if (p != null && isChangeAble(p))
                 MyMaze.setMazeArr3D(p.getDepthIndex(),p.getRowIndex(), p.getColumnIndex(), 0);
@@ -214,7 +220,6 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
          *
          * @param p - position from user
          */
-
         private boolean isChangeAble(Position3D p) {
             if (p == null)
                 return false;
@@ -229,7 +234,6 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
          * @param column - column of maze
          * @param row    - row of maze
          */
-
         private boolean isLegal(int depth, int row, int column) {
             if (row < 0 || row >= MyMaze.getRow()) // check if out of bound
                 return false;
@@ -254,7 +258,6 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
         /**
          * set a random goal position
          */
-
         private void makeGoalPosition() {
             boolean found = false;
             int rows = MyMaze.getRow();
@@ -265,7 +268,8 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
                 if (MyMaze.getCellValue(p.getDepthIndex(), p.getRowIndex(), p.getColumnIndex()) == 0
                         &&
                         (p.getDepthIndex() != MyMaze.getStartPosition().getDepthIndex() ||
-                                p.getRowIndex() != MyMaze.getStartPosition().getRowIndex() || p.getColumnIndex() != MyMaze.getStartPosition().getColumnIndex())) {//legal goal position in last row.) {//legal goal position in last row.
+                                p.getRowIndex() != MyMaze.getStartPosition().getRowIndex() ||
+                                p.getColumnIndex() != MyMaze.getStartPosition().getColumnIndex())) { //legal goal position in last row
                     MyMaze.setGoal(p);
                     found = true;
                 }

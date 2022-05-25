@@ -7,6 +7,7 @@ public class Position3D {
     private int depthIndex;
     private int rowIndex;
     private int colIndex;
+
     /**
      * set the fields of the position
      * @param depthIndex number of the given depth
@@ -39,6 +40,7 @@ public class Position3D {
     public int getColumnIndex() {
         return colIndex;
     }
+
     /**
      * @return a string of the position
      */

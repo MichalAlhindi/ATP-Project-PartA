@@ -15,6 +15,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
         super();
         this.name = "DepthFirstSearch";
     }
+
     /**
      * find a solution using depth first search algorithm
      * @param searchable the searchable problem
@@ -42,14 +43,13 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
                     NeighboursList.get(i).setParent(temp) ; //updates its parent
                     if (NeighboursList.get(i).equals(searchable.getGoalState())) {
                         searchable.setGoalState(NeighboursList.get(i)); //set end state
-                        sol = getSolution(searchable.getGoalState()); //function to add the path inside solu Solution
+                        sol = getSolution(searchable.getGoalState()); //function to add the path inside Solution
 
                         searchable.ResetVisit(); //reset visited fields
                         return sol; //return solution
                     }
                     searchable.changeVisitTrue(NeighboursList.get(i));
                     path.push(NeighboursList.get(i));
-
                 }
             }
         }
