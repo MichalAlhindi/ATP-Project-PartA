@@ -3,7 +3,9 @@ package algorithms.maze3D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+/**
+ * MyMaze3DGenerator class handle our maze
+ */
 public class MyMaze3DGenerator extends  AMaze3DGenerator{
     private Maze3D MyMaze;
     private Position3D[][][] cells;
@@ -12,7 +14,13 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
     public MyMaze3DGenerator() {
         candidates = new ArrayList<Position3D>();
     }
-
+    /**
+     * create our maze with prim algorithm
+     * @param depth number of depth in the maze
+     * @param row number of rows in the maze
+     * @param column number of columns in the maze
+     * @return the maze 3D
+     */
     @Override
     public Maze3D generate(int depth, int row, int column) {
         if (row < 2)
@@ -89,7 +97,11 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
          makeGoalPosition();
             return MyMaze;
         }
-
+    /**
+     * find the position that "found" the given position
+     * @param p the given position3D
+     * @return the "father" of the given position
+     */
         private Position3D getMyFather(Position3D p){
             List<Position3D> neighbours , potentialsFather;
             potentialsFather = new ArrayList<Position3D>();
@@ -105,7 +117,12 @@ public class MyMaze3DGenerator extends  AMaze3DGenerator{
             int index = random.nextInt(potentialsFather.size()); // get a random father
             return potentialsFather.get(index);
         }
-
+    /**
+     * connect between to positions - put 0 between them and break the wall
+     * @param p1 position 1
+     * @param p2 position 2
+     * @return if the connection has succeeed, return true, else return false
+     */
         private boolean connect(Position3D p1, Position3D p2){
             if (p1==null ||p2==null)
                 return false;

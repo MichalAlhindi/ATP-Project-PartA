@@ -36,16 +36,7 @@ public class BestFirstSearch extends ASearchingAlgorithm{
                 return 0;
         }
     }
-/*
-    public int compareCosts(AState o1, AState o2) {
-        if (o1.getCost() > o2.getCost())
-            return 1;
-        if (o2.getCost() > o1.getCost())
-            return -1;
-        else
-            return 0;
-    }
-*/
+
 
     /**
      * find a solution using best first search algorithm
@@ -89,7 +80,7 @@ public class BestFirstSearch extends ASearchingAlgorithm{
             for (int i = 0; i < NeighboursList.size(); i++) {
                 if (!searchableM.isVisited(NeighboursList.get(i))) { // new state found
                     NeighboursList.get(i).setParent(temp) ; //updates its parent
-                    //numVisited++;
+
                     if (NeighboursList.get(i).equals(searchableM.getGoalState())) {
                         searchableM.setGoalState(NeighboursList.get(i)); //set end state
                         Sol = getSolution(searchableM.getGoalState()); //function to add the path inside solu Solution

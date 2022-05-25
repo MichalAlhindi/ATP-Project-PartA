@@ -11,7 +11,12 @@ public class Maze3D {
     private Position3D startPosition;
     private Position3D goalPosition;
     private int[][][] map;
-
+    /**
+     * maze 3D consturctor, initiallize it's fields
+     * @param depthNum number of depth in the maze
+     * @param rowNum number of rows in the maze
+     * @param colNum number of columns in the maze
+     */
     public Maze3D(int depthNum, int rowNum, int colNum) {
         this.depthNum = depthNum;
         this.rowNum = rowNum;
@@ -27,7 +32,13 @@ public class Maze3D {
         setStart(p1);
         setGoal(p2);
     }
-
+    /**
+     * picking randomly a point from the maze frame
+     *  @param depths number of depths in the maze
+     * @param rows number of rows in the maze
+     * @param columns number of columns in the maze
+     * @return a position (point) on the frame of the maze
+     */
     public Position3D pointsOnFrame(int rows, int columns, int depths){
         List<Position3D> points;
         points = new ArrayList<Position3D>();
@@ -46,27 +57,39 @@ public class Maze3D {
     }
 
     public Maze3D() { }
-
+    /**
+     * @return the start point of the maze
+     */
     public Position3D getStartPosition() {
         return startPosition;
     }
-
+    /**
+     * @return the end point of the maze
+     */
     public Position3D getGoalPosition() {
         return goalPosition;
     }
-
+    /**
+     * @return the map of the maze
+     */
     public int[][][] getMap() {
         return map;
     }
-
+    /**
+     * @return number of the depths in the maze
+     */
     public int getDepth() {
         return depthNum;
     }
-
+    /**
+     * @return number of the rows in the maze
+     */
     public int getRow() {
         return rowNum;
     }
-
+    /**
+     * @return number of the columns in the maze
+     */
     public int getCol() {
         return colNum;
     }
@@ -82,23 +105,34 @@ public class Maze3D {
     public void setCol(int colNum) {
         this.colNum = colNum;
     }
+    /**
+     * set the start point of the maze
 
+     */
     public void setStart(Position3D start) {
         this.startPosition = start;
     }
-
+    /**
+     * set the goal point of the maze
+     */
     public void setGoal(Position3D goal) {
         this.goalPosition = goal;
     }
 
-    public void setMap(int[][][] map) {
-        this.map = map;
-    }
 
+    /**
+     * set value in specific index of the maze
+     * @param d number of depths in the maze
+     * @param r number of rows in the maze
+     * @param c number of columns in the maze
+     * @param val the value to set
+     */
     public void setMazeArr3D(int d, int r, int c, int val){
         this.map[d][r][c]= val;
     }
-
+    /**
+     * print the maze 3D
+     */
 
     public void print(){
         System.out.println("{");
@@ -128,8 +162,9 @@ public class Maze3D {
     }
 
     /**
-     * @param row
-     * @param col
+     * @param depth number of depths in the maze
+     * @param row number of rows in the maze
+     * @param col number of cols in the maze
      * @return the cell value(int) and in case the indexes not part of the maze return -1.
      */
     public int getCellValue(int depth, int row, int col) {

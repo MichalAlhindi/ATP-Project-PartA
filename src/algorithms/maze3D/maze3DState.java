@@ -45,8 +45,6 @@ public class maze3DState extends AState {
         return false;
     }
 
-    /*public int hashCode() {
-        return 3 * (row * 5 + col * 3) + row;
-    }*/
+
 }
 

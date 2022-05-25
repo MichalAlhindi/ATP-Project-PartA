@@ -62,42 +62,11 @@ public class SearchableMaze implements  ISearchable{
         return false;
     }
 
-    /*private ArrayList<AState> getAllDiagonal(int x, int y) {
-        ArrayList<AState> temp = new ArrayList<AState>();
-        MazeState tempM;
-        if (isLegal(x - 1, y - 1) && visitedMap[x - 1][y - 1] == false && maze.getCellValue(x - 1, y - 1) == 0)
-            if (visitedMap[x - 1][y] == false || visitedMap[x][y - 1] == false)
-                if (maze.getCellValue(x - 1, y) == 0 || maze.getCellValue(x, y - 1) == 0) {
-                    tempM = new MazeState(x - 1, y - 1);
-                    tempM.setCost(camefromcost+15);
-                    temp.add(tempM);
-                }
-        if (isLegal(x + 1, y + 1) && visitedMap[x + 1][y + 1] == false && maze.getCellValue(x + 1, y + 1) == 0)
-            if (visitedMap[x + 1][y] == false || visitedMap[x][y + 1] == false)
-                if (maze.getCellValue(x, y + 1) == 0 || maze.getCellValue(x + 1, y) == 0) {
-                    tempM = new MazeState(x + 1, y + 1);
-                    tempM.setCost(camefromcost+15);
-                    temp.add(tempM);
-                }
-        if (isLegal(x + 1, y - 1) && visitedMap[x + 1][y - 1] == false && maze.getCellValue(x + 1, y - 1) == 0)
-            if (visitedMap[x][y - 1] == false || visitedMap[x + 1][y] == false)
-                if (maze.getCellValue(x, y - 1) == 0 || maze.getCellValue(x + 1, y) == 0) {
-                    tempM = new MazeState(x + 1, y - 1);
-                    tempM.setCost(camefromcost+15);
-                    temp.add(tempM);
-                }
-        if (isLegal(x - 1, y + 1) && visitedMap[x - 1][y + 1] == false && maze.getCellValue(x - 1, y + 1) == 0)
-        {
-            if (isLegal(x-1,y)&&visitedMap[x - 1][y] == false&&maze.getCellValue(x - 1, y) == 0 || isLegal(x,y+1)&&visitedMap[x][y+1] == false&&maze.getCellValue(x, y + 1) == 0)
-            {
-                tempM = new MazeState(x - 1, y - 1);
-                tempM.setCost(camefromcost+15);
-                temp.add(tempM);
-            }
-        }
-        return temp;
-    }*/
 
+    /**
+     * @param s the state
+     * @return all possible states (legal neighbors) of a state
+     */
     @Override
     public ArrayList<AState> getAllPossibleStates(AState s) {
         ArrayList<AState> temp = new ArrayList<AState>(); //array to keep possible states
@@ -193,7 +162,9 @@ public class SearchableMaze implements  ISearchable{
         return null;
     }
 
-
+    /**
+     * @return if a state was visited
+     */
     @Override
     public boolean isVisited(AState visit) {
         if (visit != null && ((MazeState) visit).getRow() < maze.getRows() && ((MazeState) visit).getCol() < maze.getColumns()  && ((MazeState) visit).getRow() >= 0 && ((MazeState) visit).getCol() >= 0) {
@@ -205,6 +176,9 @@ public class SearchableMaze implements  ISearchable{
     }
 
 
+    /**
+     * change a state in the maze to be visited
+     */
     @Override
     public void changeVisitTrue(AState visit) {
         if (visit != null && isLegal(((MazeState) visit).getRow(),((MazeState) visit).getCol())==true)
@@ -212,6 +186,9 @@ public class SearchableMaze implements  ISearchable{
     }
 
 
+    /**
+     * reset the maze to be unvisited
+     */
     @Override
     public void ResetVisit() {
         for (int i = 0; i < maze.getRows(); i++) {

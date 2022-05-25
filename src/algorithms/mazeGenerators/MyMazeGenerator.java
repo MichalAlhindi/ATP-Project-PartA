@@ -20,7 +20,7 @@ public class MyMazeGenerator extends AMazeGenerator {
      * create our maze with prim algorithm
      * @param rows number of rows in the maze
      * @param columns number of columns in the maze
-     * @return
+     * @return thr maze
      */
     @Override
     public Maze generate(int rows, int columns) {

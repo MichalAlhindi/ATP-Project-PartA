@@ -9,6 +9,11 @@ public class SearchableMaze3D implements ISearchable {
     private maze3DState startPoint;
     private maze3DState endPoint;
     private boolean[][][] visitedMap;
+
+    /**
+     * create SearchableMaze3D
+     * @param m the maze to generate
+     */
     public SearchableMaze3D(Maze3D m) {
         if (m != null) {
             maze = m;
@@ -17,26 +22,33 @@ public class SearchableMaze3D implements ISearchable {
             visitedMap = new boolean[m.getDepth()][m.getRow()][m.getCol()];
         }
     }
+    /**
+     * @return the start state
+     */
     @Override
     public AState getStartState() {
         return startPoint;
     }
-
+    /**
+     * @return the end state
+     */
     @Override
     public AState getGoalState() {
         return endPoint;
     }
 
     /**
-     *
-     * @param x
+     * sets the goal state
+     * @param x a state to set as the goal state
      */
     @Override
     public void setGoalState(AState x) {
         if (x != null && x instanceof maze3DState) //make sure aState is a maze3DState
             endPoint = (maze3DState) x;
     }
-
+    /**
+     * @return if a state was visited
+     */
     @Override
     public boolean isVisited(AState visit) {
         if (visit != null &&((maze3DState) visit).getDepth() < maze.getDepth() &&((maze3DState) visit).getRow() < maze.getRow() &&
@@ -49,6 +61,10 @@ public class SearchableMaze3D implements ISearchable {
         else
             return false;
     }
+    /**
+     * @param s the state
+     * @return all possible states (legal neighbors) of a state -6 options
+     */
 
     @Override
     public ArrayList<AState> getAllPossibleStates(AState s) {
@@ -84,7 +100,13 @@ public class SearchableMaze3D implements ISearchable {
         }
         return temp;
     }
-
+    /**
+     * if the index isn't a wall, creates a maze state .
+     * @param z depth index
+     * @param x row index
+     * @param y column index
+     * @return the maze state of the current index
+     */
     private maze3DState CheckLegal(int z, int x, int y) {
         maze3DState tempM;
         if (isLegal(z, x, y)) {
@@ -96,12 +118,20 @@ public class SearchableMaze3D implements ISearchable {
         return null;
     }
 
+    /**
+     * change a state in the maze to be visited
+     */
     @Override
     public void changeVisitTrue(AState visit) {
         if (visit != null && isLegal(((maze3DState) visit).getDepth(), ((maze3DState) visit).getRow(),((maze3DState) visit).getCol())==true)
             visitedMap[((maze3DState) visit).getDepth()][((maze3DState) visit).getRow()][((maze3DState) visit).getCol()] = true;
     }
-
+    /**
+     * @param depth the depth of a state
+     * @param row the row of a state
+     * @param column the column of a state
+     * @return if the index is inside the maze and isn't visited.
+     */
     private boolean isLegal(int depth, int row, int column) {
         if (depth < 0 || row < 0 || column < 0 ||  depth >= maze.getDepth() || row >= maze.getRow() || column >= maze.getCol())
             return false;
@@ -109,7 +139,9 @@ public class SearchableMaze3D implements ISearchable {
             return true;
         return false;
     }
-
+    /**
+     * reset the maze to be unvisited
+     */
     @Override
     public void ResetVisit() {
         for (int d = 0; d < maze.getDepth(); d++) {
