@@ -63,6 +63,9 @@ public class SearchableMaze implements  ISearchable{
     }
 
     /**
+     * find all of th legal neighbors of the input state, and set their cost value to be their parent's value + theirs cost
+     * (15 for diagonal , 10 for straight) we sum the costs because we want to know the cost to get to each node
+     * we go  clockwise (up first)
      * @param s the state
      * @return all possible states (legal neighbors) of a state
      */
@@ -79,10 +82,11 @@ public class SearchableMaze implements  ISearchable{
             int x = mazestate.getRow();
             int y = mazestate.getCol();
             MazeState TempAdd; //temp mazestate
+            //*up*
             TempAdd = CheckLegal(x - 1, y,camefromcost); //check if legal to add
             if (TempAdd != null)
                 temp.add(TempAdd); //add to arraylist
-
+            //*right up*
             if (isLegal(x - 1, y + 1) && visitedMap[x - 1][y + 1] == false && maze.getCellValue(x - 1, y + 1) == 0)
             {
                 if (isLegal(x-1,y)&&visitedMap[x - 1][y] == false&&maze.getCellValue(x - 1, y) == 0 ||
@@ -92,11 +96,11 @@ public class SearchableMaze implements  ISearchable{
                     temp.add(tempM);
                 }
             }
-
+            //*right*
             TempAdd = CheckLegal(x, y + 1,camefromcost);
             if (TempAdd != null)
                 temp.add(TempAdd);
-
+            //*right down*
             if (isLegal(x + 1, y + 1) && visitedMap[x + 1][y + 1] == false && maze.getCellValue(x + 1, y + 1) == 0)
             {
                 if (visitedMap[x + 1][y] == false || visitedMap[x][y + 1] == false) {
@@ -107,11 +111,11 @@ public class SearchableMaze implements  ISearchable{
                     }
                 }
             }
-
+            //*down*
             TempAdd = CheckLegal(x + 1, y,camefromcost);
             if (TempAdd != null)
                 temp.add(TempAdd);
-
+            //*down left*
             if (isLegal(x + 1, y - 1) && visitedMap[x + 1][y - 1] == false && maze.getCellValue(x + 1, y - 1) == 0)
             {
                 if (visitedMap[x][y - 1] == false || visitedMap[x + 1][y] == false) {
@@ -122,11 +126,11 @@ public class SearchableMaze implements  ISearchable{
                     }
                 }
             }
-
+            //*left*
             TempAdd = CheckLegal(x, y - 1,camefromcost);
             if (TempAdd != null)
                 temp.add(TempAdd);
-
+            //*up left*
             if (isLegal(x - 1, y - 1) && visitedMap[x - 1][y - 1] == false && maze.getCellValue(x - 1, y - 1) == 0) {
                 if (visitedMap[x - 1][y] == false || visitedMap[x][y - 1] == false) {
                     if (maze.getCellValue(x - 1, y) == 0 || maze.getCellValue(x, y - 1) == 0) {

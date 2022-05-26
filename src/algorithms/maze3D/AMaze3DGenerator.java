@@ -1,6 +1,6 @@
 package algorithms.maze3D;
 
-public abstract  class  AMaze3DGenerator implements IMazeGenerator3D {
+public abstract  class  AMaze3DGenerator implements IMaze3DGenerator {
     /**
      * measure the time of creating maze 3D
      * @param depth number of depth in the maze

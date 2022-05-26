@@ -1,6 +1,6 @@
 package algorithms.maze3D;
 
-public interface IMazeGenerator3D {
+public interface IMaze3DGenerator {
     /**
      * generates a maze 3D
      * @param depth number of depth in the maze

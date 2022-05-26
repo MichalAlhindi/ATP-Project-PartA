@@ -46,9 +46,6 @@ public class BestFirstSearchTest {
     @Test
     void solve() {
         assertNotEquals(bestFirstSearch.solve(MazeSearch), null);
-        assertNotEquals(bestFirstSearch.solve(MazeSearch), 0);
-
-
     }
 }
 

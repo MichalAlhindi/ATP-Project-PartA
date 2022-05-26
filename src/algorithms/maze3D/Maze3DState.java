@@ -2,7 +2,7 @@ package algorithms.maze3D;
 
 import algorithms.search.AState;
 
-public class maze3DState extends AState {
+public class Maze3DState extends AState {
 
     private int row;
     private int col;
@@ -14,7 +14,7 @@ public class maze3DState extends AState {
      * @param row the number of rows in each depth of the maze
      * @param col the number of columns in each depth of the maze
      */
-    public maze3DState(int depth, int row, int col) {
+    public Maze3DState(int depth, int row, int col) {
         super();
         this.depth = depth;
         this.row = row;
@@ -59,9 +59,9 @@ public class maze3DState extends AState {
      * @return weather the input state equals to this one
      */
     public boolean equals(Object o) {
-        if (!(o instanceof maze3DState))
+        if (!(o instanceof Maze3DState))
             return false;
-        if (((maze3DState) o).depth == depth && ((maze3DState) o).row == row && ((maze3DState) o).col == col)
+        if (((Maze3DState) o).depth == depth && ((Maze3DState) o).row == row && ((Maze3DState) o).col == col)
             return true;
         return false;
     }
