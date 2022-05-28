@@ -163,8 +163,8 @@ public class Maze {
         }
         System.out.print("}\n");
     }
-
+/*
     public byte[] toByteArray(){
 
-    }
+    }*/
 }
