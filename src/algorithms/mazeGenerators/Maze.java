@@ -33,6 +33,10 @@ public class Maze {
         setEndPoint(p2.getRowIndex(), p2.getColumnIndex());
     }
 
+    public Maze(byte[] byteArr){
+
+    }
+
     /**
      * @return the maze in an array
      */
@@ -158,5 +162,9 @@ public class Maze {
                 System.out.print("}");
         }
         System.out.print("}\n");
+    }
+
+    public byte[] toByteArray(){
+
     }
 }
