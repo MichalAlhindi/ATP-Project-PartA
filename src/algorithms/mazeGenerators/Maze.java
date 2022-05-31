@@ -34,7 +34,18 @@ public class Maze {
     }
 
     public Maze(byte[] byteArr){
-
+        rows = byteArr[0];
+        columns = byteArr[1];
+        setStartPoint(byteArr[2], byteArr[3]);
+        setEndPoint(byteArr[4],byteArr[5]);
+        this.mazeArr= new int[rows][columns];
+        int b = 6;
+        for (int r=0; r<rows; r++){
+            for (int c=0; c<columns; c++){
+                setMazeArr(r,c,byteArr[b]);
+                b++;
+            }
+        }
     }
 
     /**
@@ -163,8 +174,21 @@ public class Maze {
         }
         System.out.print("}\n");
     }
-/*
     public byte[] toByteArray(){
-
-    }*/
+        byte[] byteArr = new byte[rows*columns+6];
+        byteArr[0] = (byte)rows;
+        byteArr[1] = (byte)columns;
+        byteArr[2] = (byte)getStartPosition().getRowIndex();
+        byteArr[3] = (byte)getStartPosition().getColumnIndex();
+        byteArr[4] = (byte)getGoalPosition().getRowIndex();
+        byteArr[5] = (byte)getGoalPosition().getColumnIndex();
+        int b=6;
+        for(int r=0; r<rows; r++){
+            for(int c=0; c<columns; c++){
+                byteArr[b] = (byte)getCellValue(r,c);
+                b++;
+            }
+        }
+        return byteArr;
+    }
 }
