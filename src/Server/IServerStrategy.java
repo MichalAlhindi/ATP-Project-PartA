@@ -1,4 +1,10 @@
 package Server;
 
-public interface IServerStrategy {
-}
+
+import java.io.InputStream;
+import java.io.OutputStream;
+
+    public interface IServerStrategy {
+        void ServerStrategy(InputStream in, OutputStream out);
+    }
+
