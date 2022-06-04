@@ -1,6 +1,5 @@
 package Server;
 import IO.MyCompressorOutputStream;
-import IO.MyDecompressorInputStream;
 import algorithms.mazeGenerators.*;
 import algorithms.search.*;
 
@@ -38,6 +37,7 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy{
             e.printStackTrace();
         }
     }
+    @Override
     public void ServerStrategy(InputStream inFromClient, OutputStream outToClient) {
         try {
             Solution solution;
@@ -55,6 +55,7 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy{
             else{
                 solution = getSolutionByPath(solutionPath);
             }
+            ////////////// compress the solution? //////////////////////////////////////
             toClient.writeObject(solution);
             toClient.flush();
             fromClient.close();
@@ -95,7 +96,7 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy{
 
     private void saveSolution(byte[] compressedMaze, Solution solution) throws IOException {
         String fileName = String.valueOf(getSolutionNumber());
-        String finalPath = getTempDirectoryPath()+fileName+"_"+String.valueOf(System.currentTimeMillis())+".Solution";
+        String finalPath = getTempDirectoryPath() + fileName + "_" + String.valueOf(System.currentTimeMillis()) + ".Solution";
         FileOutputStream fileOut = new FileOutputStream(finalPath);
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
         out.writeObject(solution);
@@ -130,7 +131,7 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy{
     }
 
     private byte[] mazeToCompress(Maze maze) {
-        ByteArrayOutputStream b = new ByteArrayOutputStream(Math.round((maze.toByteArray().length)/8));
+        ByteArrayOutputStream b = new ByteArrayOutputStream(maze.toByteArray().length);
         try {
             OutputStream out = new MyCompressorOutputStream(b);
             out.write(maze.toByteArray());

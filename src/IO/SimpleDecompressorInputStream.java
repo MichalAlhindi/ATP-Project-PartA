@@ -19,14 +19,14 @@ public class SimpleDecompressorInputStream extends InputStream {
 
     @Override
     public int read(byte[] newB) throws IOException {
-        byte[] bArr = in.readAllBytes();
+        byte[] compressedArr = in.readAllBytes();
         byte count;
         for (int j = 0; j<6; j++){
-            newB[j]= bArr[j];
+            newB[j]= compressedArr[j];
         }
         int newIdx=6;
-        for (int i = 6; i< bArr.length; i++){
-            count = bArr[i];
+        for (int i = 6; i< compressedArr.length; i++){
+            count = compressedArr[i];
             while(count>0){
                 newB[newIdx]= (byte)currNum;
                 newIdx++;

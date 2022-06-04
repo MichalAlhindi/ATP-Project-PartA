@@ -21,14 +21,16 @@ public class ServerStrategyGenerateMaze implements IServerStrategy{
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
             try {
-                OutputStream out = new MyCompressorOutputStream(outputStream);
+                OutputStream out= new MyCompressorOutputStream(outputStream);
                 out.write(maze.toByteArray());
+                // why this needed?
                 out.flush();
                 out.close();
             } catch (IOException e) {
                 e.printStackTrace();
 
             }
+            // is it right???????????????????????????????????????
             toClient.writeObject(outputStream.toByteArray());
             toClient.flush();
             fromClient.close();

@@ -1,5 +1,6 @@
 package algorithms.mazeGenerators;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -7,7 +8,7 @@ import java.util.Random;
 /**
  * the Maze class is for handle a maze
  */
-public class Maze {
+public class Maze implements Serializable {
     private int rows;
     private int columns;
     private int[][] mazeArr;
@@ -34,10 +35,13 @@ public class Maze {
     }
 
     public Maze(byte[] byteArr){
+        rows = 0;
         rows = byteArr[0];
-        columns = byteArr[1];
-        setStartPoint(byteArr[2], byteArr[3]);
-        setEndPoint(byteArr[4],byteArr[5]);
+        rows |= (byteArr[1] << 8);
+        columns = byteArr[2];
+        columns |= (byteArr[3] << 8);
+        setStartPoint(byteArr[4], byteArr[5]);
+        setEndPoint(byteArr[6],byteArr[7]);
         this.mazeArr= new int[rows][columns];
         int b = 6;
         for (int r=0; r<rows; r++){
@@ -175,14 +179,20 @@ public class Maze {
         System.out.print("}\n");
     }
     public byte[] toByteArray(){
-        byte[] byteArr = new byte[rows*columns+6];
-        byteArr[0] = (byte)rows;
-        byteArr[1] = (byte)columns;
-        byteArr[2] = (byte)getStartPosition().getRowIndex();
-        byteArr[3] = (byte)getStartPosition().getColumnIndex();
-        byteArr[4] = (byte)getGoalPosition().getRowIndex();
-        byteArr[5] = (byte)getGoalPosition().getColumnIndex();
-        int b=6;
+        byte[] byteArr = new byte[rows*columns+12];
+        byteArr[0] = (byte)(rows & 255);
+        byteArr[1] = (byte)((rows >> 8) & 255);
+        byteArr[2] = (byte)(columns & 255);
+        byteArr[3] = (byte)((columns >> 8) & 255);
+        byteArr[4] = (byte)(getStartPosition().getRowIndex()& 255);
+        byteArr[5] = (byte)((getStartPosition().getRowIndex() >> 8 ) & 255);
+        byteArr[6] = (byte)(getStartPosition().getColumnIndex() & 255);
+        byteArr[7] = (byte)((getStartPosition().getColumnIndex() >> 8 ) & 255);
+        byteArr[8] = (byte)(getGoalPosition().getRowIndex() & 255);
+        byteArr[9] = (byte)((getGoalPosition().getRowIndex() >> 8 ) & 255);
+        byteArr[10] = (byte)(getGoalPosition().getColumnIndex() & 255);
+        byteArr[11] = (byte)((getGoalPosition().getColumnIndex() >> 8 ) & 255);
+        int b=12;
         for(int r=0; r<rows; r++){
             for(int c=0; c<columns; c++){
                 byteArr[b] = (byte)getCellValue(r,c);

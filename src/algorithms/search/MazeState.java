@@ -1,9 +1,11 @@
 package algorithms.search;
 
+import java.io.Serializable;
+
 /**
  *class represents a state of the maze
  */
-public class MazeState extends AState{
+public class MazeState extends AState implements Serializable {
     private int row;
     private int col;
 
