@@ -38,18 +38,18 @@ public class RunCommunicateWithServers{
                                 ObjectInputStream fromServer = new
                                         ObjectInputStream(inFromServer);
                                 toServer.flush();
-                                int[] mazeDimensions = new int[]{5000, 5000};
+                                int[] mazeDimensions = new int[]{50, 50};
                                 toServer.writeObject(mazeDimensions); //send maze dimensions to server
                                 toServer.flush();
                                 byte[] compressedMaze = (byte[])
                                         fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
                                 InputStream is = new MyDecompressorInputStream(new
                                         ByteArrayInputStream(compressedMaze));
-                                byte[] decompressedMaze = new byte[25000006 /*CHANGE
+                                byte[] decompressedMaze = new byte[2512 /*CHANGE
 SIZE ACCORDING TO YOU MAZE SIZE*/]; //allocating byte[] for the decompressed maze -
                                         is.read(decompressedMaze); //Fill decompressedMaze with bytes
                                 Maze maze = new Maze(decompressedMaze);
-                                //maze.print();
+                                maze.print();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -74,7 +74,7 @@ SIZE ACCORDING TO YOU MAZE SIZE*/]; //allocating byte[] for the decompressed maz
                                         ObjectInputStream(inFromServer);
                                 toServer.flush();
                                 MyMazeGenerator mg = new MyMazeGenerator();
-                                Maze maze = mg.generate(5000, 5000);
+                                Maze maze = mg.generate(50, 50);
                                 maze.print();
                                 toServer.writeObject(maze); //send maze to server
                                 toServer.flush();

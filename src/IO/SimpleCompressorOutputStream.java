@@ -20,10 +20,10 @@ public class SimpleCompressorOutputStream extends OutputStream{
 
     @Override
     public void write(byte[] b) throws IOException {
-        for(int i=0; i<6; i++) {
+        for(int i=0; i<12; i++) {
             write(b[i]);
         }
-        for(int j=6; j<b.length; j++){
+        for(int j=12; j<b.length; j++){
             if(b[j] == currNum){
                 if(count>255){
                     write(255);

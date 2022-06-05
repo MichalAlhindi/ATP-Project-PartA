@@ -24,12 +24,12 @@ public class MyDecompressorInputStream extends InputStream {
     @Override
     public int read(byte[] newB) throws IOException {
         byte[] compressedArr = in.readAllBytes();
-        for (int j = 0; j<6; j++){
+        for (int j = 0; j<12; j++){
             newB[j]= compressedArr[j]; // write the data of the first 6's cells
         }
-        int currIdx = 6; // curr index of newB
+        int currIdx = 12; // curr index of newB
         byte val;
-        for (int i = 6; i < compressedArr.length; i++){
+        for (int i = 12; i < compressedArr.length; i++){
             int k = 7;
             int num=compressedArr[i];
             if(num < 0){

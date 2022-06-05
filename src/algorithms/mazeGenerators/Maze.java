@@ -35,15 +35,23 @@ public class Maze implements Serializable {
     }
 
     public Maze(byte[] byteArr){
-        rows = 0;
-        rows = byteArr[0];
+        //rows = 0;
+        rows = byteArr[0] < 0 ? byteArr[0]+256 : byteArr[0];
         rows |= (byteArr[1] << 8);
-        columns = byteArr[2];
+        columns = byteArr[2]< 0 ? byteArr[2]+256 : byteArr[2];;
         columns |= (byteArr[3] << 8);
-        setStartPoint(byteArr[4], byteArr[5]);
-        setEndPoint(byteArr[6],byteArr[7]);
+        int rowStart = byteArr[4]< 0 ? byteArr[4]+256 : byteArr[4];;
+        rowStart |= (byteArr[5] << 8);
+        int colStart= byteArr[6]< 0 ? byteArr[6]+256 : byteArr[6];;
+        colStart |= (byteArr[7] << 8);
+        int rowEnd = byteArr[8]< 0 ? byteArr[8]+256 : byteArr[8];;
+        rowEnd |= (byteArr[9] << 8);
+        int colEnd= byteArr[10]< 0 ? byteArr[10]+256 : byteArr[10];;
+        colEnd |= (byteArr[11] << 8);
+        setStartPoint(rowStart, colStart);
+        setEndPoint(rowEnd,colEnd);
         this.mazeArr= new int[rows][columns];
-        int b = 6;
+        int b = 12;
         for (int r=0; r<rows; r++){
             for (int c=0; c<columns; c++){
                 setMazeArr(r,c,byteArr[b]);

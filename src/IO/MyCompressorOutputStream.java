@@ -26,10 +26,10 @@ public class MyCompressorOutputStream extends OutputStream {
      */
     @Override
     public void write(byte[] b) throws IOException {
-        for(int i=0; i<6; i++) { // write the data of the first 6's cells
+        for(int i=0; i<12; i++) { // write the data of the first 6's cells
             write(b[i]);
         }
-        int j=6;
+        int j=12;
         int sum = 0; // the current sum of the current 8 bytes
         int index=0; // the index of the current byte
         while(j < b.length){
