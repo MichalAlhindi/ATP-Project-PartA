@@ -8,9 +8,13 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.concurrent.Executors;
 public class ServerStrategyGenerateMaze implements IServerStrategy{
-    public ServerStrategyGenerateMaze() {
-    }
+    public ServerStrategyGenerateMaze() {}
 
+    /**
+     * generating maze in the sizes of the client input, compress the maze and send it to the client
+     * @param inFromClient the input from the client - the maze sizes
+     * @param outToClient the output to the client - the compressed maze
+     */
     public void ServerStrategy(InputStream inFromClient, OutputStream outToClient) {
         try {
             ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
@@ -23,14 +27,12 @@ public class ServerStrategyGenerateMaze implements IServerStrategy{
             try {
                 OutputStream out= new MyCompressorOutputStream(outputStream);
                 out.write(maze.toByteArray());
-                // why this needed?
                 out.flush();
                 out.close();
             } catch (IOException e) {
                 e.printStackTrace();
 
             }
-            // is it right???????????????????????????????????????
             toClient.writeObject(outputStream.toByteArray());
             toClient.flush();
             fromClient.close();
@@ -40,6 +42,11 @@ public class ServerStrategyGenerateMaze implements IServerStrategy{
 
         }
     }
+
+    /**
+     * finds the relevant maze generator
+     * @return the relevant maze generator
+     */
     private AMazeGenerator findMazeGenerator() {
         AMazeGenerator mazeGenerator =  null;
         try (InputStream input = new FileInputStream("resources/config.properties")) {

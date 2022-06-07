@@ -5,11 +5,20 @@ import java.io.InputStream;
 
 public class MyDecompressorInputStream extends InputStream {
     private InputStream in;
+
+    /**
+     * constructor
+     * @param is the inputStream of the decompressor
+     */
     public MyDecompressorInputStream(InputStream is) {
         in = is;
     }
 
-
+    /**
+     * override method
+     * @return 0
+     * @throws IOException
+     */
     @Override
     public int read() throws IOException {
         return 0;

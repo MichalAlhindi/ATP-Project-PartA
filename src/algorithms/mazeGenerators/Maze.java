@@ -1,9 +1,7 @@
 package algorithms.mazeGenerators;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * the Maze class is for handle a maze
@@ -16,7 +14,7 @@ public class Maze implements Serializable {
     private Position EndPoint;
 
     /**
-     * maze consturctor, initiallize it's fields
+     * maze consturctor, initialize it's fields
      * @param r number of rows in the maze
      * @param c number of columns in the maze
      */
@@ -34,6 +32,10 @@ public class Maze implements Serializable {
         setEndPoint(p2.getRowIndex(), p2.getColumnIndex());
     }
 
+    /**
+     * maze constructor, using a byte array with details of the maze
+     * @param byteArr the array with details of the maze
+     */
     public Maze(byte[] byteArr){
         //rows = 0;
         rows = byteArr[0] < 0 ? byteArr[0]+256 : byteArr[0];
@@ -186,6 +188,11 @@ public class Maze implements Serializable {
         }
         System.out.print("}\n");
     }
+
+    /**
+     *  the details of the maze get in an array of bytes
+     * @return the maze in byte array
+     */
     public byte[] toByteArray(){
         byte[] byteArr = new byte[rows*columns+12];
         byteArr[0] = (byte)(rows & 255);
@@ -208,5 +215,20 @@ public class Maze implements Serializable {
             }
         }
         return byteArr;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Maze maze = (Maze) o;
+        return rows == maze.rows && columns == maze.columns && Arrays.equals(mazeArr, maze.mazeArr) && StartPoint.equals(maze.StartPoint) && EndPoint.equals(maze.EndPoint);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(rows, columns, StartPoint, EndPoint);
+        result = 31 * result + Arrays.hashCode(mazeArr);
+        return result;
     }
 }

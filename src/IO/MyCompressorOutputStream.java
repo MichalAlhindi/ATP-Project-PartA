@@ -8,12 +8,22 @@ public class MyCompressorOutputStream extends OutputStream {
     private int count;
     private int currNum;
     private byte[] byteArr;
+
+    /**
+     * constructor
+     * @param os outputStream of the compressor
+     */
     public MyCompressorOutputStream(OutputStream os) {
         out = os;
         count = 0;
         currNum = 0;
     }
 
+    /**
+     * write a number to to outStream
+     * @param b the number to write
+     * @throws IOException
+     */
     @Override
     public void write(int b) throws IOException {
         out.write((byte)b);
@@ -21,6 +31,7 @@ public class MyCompressorOutputStream extends OutputStream {
 
     /**
      * compress byte array : convert every 8 bytes of the array to a decimal number (in byte)
+     * and write it to the outputStream
      * @param b byte array to be compressed
      * @throws IOException
      */

@@ -13,11 +13,21 @@ public class SimpleCompressorOutputStream extends OutputStream{
         currNum = 0;
     }
 
+    /**
+     * write a number to the outStream
+     * @param b the number to write
+     * @throws IOException
+     */
     @Override
     public void write(int b) throws IOException {
         out.write((byte)b);
     }
 
+    /**
+     * compress byte array : for every continuity bytes in the array, write it's count to the outputStream
+     * @param b byte array to be compressed
+     * @throws IOException
+     */
     @Override
     public void write(byte[] b) throws IOException {
         for(int i=0; i<12; i++) {

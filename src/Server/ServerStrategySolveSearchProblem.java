@@ -1,5 +1,6 @@
 package Server;
 import IO.MyCompressorOutputStream;
+import IO.MyDecompressorInputStream;
 import algorithms.mazeGenerators.*;
 import algorithms.search.*;
 
@@ -14,6 +15,9 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy{
     Hashtable<String,String> hashtableSolutions;      // Hashtable in order to store solutions of mazes
     String hashPath = System.getProperty("java.io.tmpdir") + "hashtableSolutions.ser";
 
+    /**
+     * constructor
+     */
     public ServerStrategySolveSearchProblem() {
         this.tempDirectoryPath = System.getProperty("java.io.tmpdir");
         File hashFile = new File(this.hashPath);
@@ -37,6 +41,13 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy{
             e.printStackTrace();
         }
     }
+
+    /**
+     * get a maze from the client, check if the solution is saved, if not, solve the maze and save the solution
+     * and send it to the client
+     * @param inFromClient the input from the client - a maze
+     * @param outToClient the output for the client - the solution for the maze
+     */
     @Override
     public void ServerStrategy(InputStream inFromClient, OutputStream outToClient) {
         try {
@@ -55,7 +66,6 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy{
             else{
                 solution = getSolutionByPath(solutionPath);
             }
-            ////////////// compress the solution? //////////////////////////////////////
             toClient.writeObject(solution);
             toClient.flush();
             fromClient.close();
@@ -65,6 +75,10 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy{
         }
     }
 
+    /**
+     * finds the relevant maze generator
+     * @return the relevant maze generator
+     */
     private ASearchingAlgorithm findSearchAlgorithm() {
         ASearchingAlgorithm searchingAlgorithm =  null;
         try (InputStream input = new FileInputStream("resources/config.properties")) {
@@ -88,15 +102,28 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy{
         return searchingAlgorithm;
     }
 
+    /**
+     * return the solution that is in the path input
+     * @param solutionPath the path of the file of the solution
+     * @return the solution that is in the path
+     * @throws IOException .
+     * @throws ClassNotFoundException .
+     */
     private Solution getSolutionByPath(String solutionPath) throws IOException, ClassNotFoundException {
         ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(solutionPath));
         Solution solution =(Solution) objectInputStream.readObject();
         return  solution;
     }
 
+    /**
+     * save the solution and the maze in the hash table with a unique name
+     * @param compressedMaze the maze
+     * @param solution the solution
+     * @throws IOException .
+     */
     private void saveSolution(byte[] compressedMaze, Solution solution) throws IOException {
         String fileName = String.valueOf(getSolutionNumber());
-        String finalPath = getTempDirectoryPath() + fileName + "_" + String.valueOf(System.currentTimeMillis()) + ".Solution";
+        String finalPath = getTempDirectoryPath() + fileName + "_" + String.valueOf(System.currentTimeMillis())+".Solution";
         FileOutputStream fileOut = new FileOutputStream(finalPath);
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
         out.writeObject(solution);
@@ -110,10 +137,18 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy{
         outHash.close();
     }
 
+    /**
+     *
+     * @return the curr solution number
+     */
     public static int getSolutionNumber() {
         return solutionNumber;
     }
 
+    /**
+     *
+     * @return the directory path
+     */
     public String getTempDirectoryPath() {
         return tempDirectoryPath;
     }
@@ -125,15 +160,25 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy{
         return null;
     }
 
-    private String ourToString(byte[] compressedMaze) { //function that gets compressedMaze as bytes[] and returns it as String
+    /**
+     * convert the maze to string
+     * @param compressedMaze byte array of a compressed maze
+     * @return the maze as a string
+     */
+    private String ourToString(byte[] compressedMaze) {
         String s = new String(compressedMaze, StandardCharsets.UTF_8);
         return s;
     }
 
+    /**
+     * compress the maze
+     * @param maze the maze to compress
+     * @return
+     */
     private byte[] mazeToCompress(Maze maze) {
-        ByteArrayOutputStream b = new ByteArrayOutputStream(maze.toByteArray().length);
+        ByteArrayOutputStream b = new ByteArrayOutputStream(Math.round((maze.toByteArray().length)));
         try {
-            OutputStream out = new MyCompressorOutputStream(b);
+            MyCompressorOutputStream out = new MyCompressorOutputStream(b);
             out.write(maze.toByteArray());
             out.flush();
             out.close();

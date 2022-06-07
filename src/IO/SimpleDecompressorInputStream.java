@@ -11,12 +11,22 @@ public class SimpleDecompressorInputStream extends InputStream {
         currNum = 0;
     }
 
+    /**
+     * override method
+     * @return 0
+     * @throws IOException
+     */
     @Override
     public int read() throws IOException {
-
         return 0;
     }
 
+    /**
+     * decompress byte array : change the given byte array - convert every number to a sequence of 0/1 in the size of this number.
+     * @param newB the new decompressed array
+     * @return
+     * @throws IOException
+     */
     @Override
     public int read(byte[] newB) throws IOException {
         byte[] compressedArr = in.readAllBytes();

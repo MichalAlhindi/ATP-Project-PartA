@@ -17,6 +17,12 @@ public class Server implements Serializable {
     private volatile boolean stop;
     private ExecutorService threadPool;
 
+    /**
+     * constructor
+     * @param port of the server
+     * @param listeningIntervalMS .
+     * @param strategy the algorithm to use
+     */
     public Server(int port, int listeningIntervalMS, IServerStrategy strategy) {
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
@@ -33,12 +39,18 @@ public class Server implements Serializable {
         }
     }
 
+    /**
+     * the function that starts the server
+     */
     public void start() {
         new Thread(() -> {
             this.startInner();
         }).start();
     }
 
+    /**
+     * helping function for start()
+     */
     private void startInner(){
         try {
             ServerSocket serverSocket = new ServerSocket(this.port);
@@ -60,6 +72,10 @@ public class Server implements Serializable {
         }
     }
 
+    /**
+     * apply the algorithm
+     * @param clientSocket the client
+     */
     private void handleClient(Socket clientSocket) {
         try {
             this.strategy.ServerStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
@@ -69,6 +85,9 @@ public class Server implements Serializable {
         }
     }
 
+    /**
+     * stop the server
+     */
     public void stop() {
         this.stop = true;
     }
