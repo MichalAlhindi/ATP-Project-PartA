@@ -35,12 +35,12 @@ public class SimpleCompressorOutputStream extends OutputStream{
         }
         for(int j=12; j<b.length; j++){
             if(b[j] == currNum){
+                count++;
                 if(count>255){
                     write(255);
                     write(0);
-                    count=0;
+                    count=1;
                 }
-                count++;
             }
             else{
                 write(count);
@@ -53,6 +53,13 @@ public class SimpleCompressorOutputStream extends OutputStream{
                 }
             }
         }
-        write(count);
+        if(count>255){
+            write(255);
+            write(0);
+            write(1);
+        }
+        else{
+            write(count);
+        }
     }
 }
